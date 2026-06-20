@@ -1,17 +1,17 @@
 /* ============ DESIGN TOKENS ============ */
 :root {
   /* Brand palette — refined from the logo: deep navy · muted forest green · classic red · soft blue */
-  --green: #17285c;        /* primary = deep professional navy */
-  --green-dark: #122150;
-  --green-deep: #0e1a40;   /* near-black navy */
-  --cream: #f1f5fb;        /* soft, low-saturation blue-grey background */
-  --gold: #d4392f;         /* accent / CTA = refined brand red (less candy) */
+  --green: #16203d;        /* primary = navy (text, headings) */
+  --green-dark: #111a33;
+  --green-deep: #0d152b;   /* near-black navy */
+  --cream: #f6f8fc;        /* very light grey-blue for alternating sections */
+  --gold: #d4392f;         /* the single accent = brand red (buttons/highlights) */
   --gold-dark: #b92f27;
-  --leaf: #3c8a33;         /* muted forest green (hands) */
+  --leaf: #3c8a33;         /* green — used only on small ticks */
   --leaf-deep: #2c6a26;
-  --ink: #16203d;          /* near-black navy for body text */
-  --muted: #5b6480;
-  --line: #e1e8f2;
+  --ink: #1d2540;          /* navy-ink body text */
+  --muted: #5f6885;
+  --line: #e6ebf3;
   --white: #ffffff;
   --shadow: 0 12px 32px rgba(16, 26, 64, .08);
   --shadow-lg: 0 24px 56px rgba(16, 26, 64, .14);
@@ -25,8 +25,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--ink);
-  background: linear-gradient(180deg, #fbfcfe 0%, #eef3fa 100%);
-  background-attachment: fixed;
+  background: #ffffff;
   line-height: 1.65;
 }
 h1, h2, h3, h4, .brand strong { font-family: 'Poppins', sans-serif; line-height: 1.2; }
@@ -78,11 +77,10 @@ img { max-width: 100%; display: block; }
 
 /* ============ HERO ============ */
 .hero { background:
-    radial-gradient(1000px 520px at 90% -15%, rgba(23,40,92,.10), transparent 60%),
-    radial-gradient(760px 480px at -5% 115%, rgba(60,138,51,.07), transparent 55%),
-    linear-gradient(180deg, #fbfcfe, #eef3fa);
+    radial-gradient(900px 480px at 92% -20%, rgba(212,57,47,.05), transparent 60%),
+    linear-gradient(180deg, #ffffff, #f6f8fc);
   padding: 70px 0 80px; position: relative; overflow: hidden; }
-.hero::before { content: "🌸"; position: absolute; font-size: 22rem; right: -60px; bottom: -80px; opacity: .05; pointer-events: none; }
+.hero::before { content: "🌸"; position: absolute; font-size: 22rem; right: -60px; bottom: -80px; opacity: .04; pointer-events: none; }
 .hero__inner { display: grid; grid-template-columns: 1.3fr .9fr; gap: 50px; align-items: center; }
 .hero__eyebrow { display: inline-block; background: rgba(23,40,92,.08); color: var(--green); padding: 7px 16px; border-radius: 50px; font-weight: 600; font-size: .85rem; margin-bottom: 20px; }
 .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); color: var(--green-deep); margin-bottom: 18px; }
@@ -102,10 +100,11 @@ img { max-width: 100%; display: block; }
 .hero__points li::before { content: "✓"; position: absolute; left: 0; color: var(--leaf); font-weight: 700; }
 
 /* ============ STATS ============ */
-.stats { background: var(--green); color: #fff; padding: 36px 0; }
+.stats { background: var(--cream); color: var(--ink); padding: 40px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-.stat strong { display: block; font-family: 'Poppins'; font-size: 2.4rem; color: #fff; }
-.stat span { font-size: .9rem; color: #d8e8e0; }
+.stat strong { display: block; font-family: 'Poppins'; font-size: 2.4rem; color: var(--green); }
+.stat strong::after { content: ""; display: block; width: 28px; height: 3px; background: var(--gold); border-radius: 3px; margin: 8px auto 6px; }
+.stat span { font-size: .9rem; color: var(--muted); }
 
 /* ============ SECTION HEAD ============ */
 .section-head { text-align: center; max-width: 640px; margin: 0 auto 46px; }
@@ -148,18 +147,20 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .card p { font-size: .9rem; color: var(--muted); }
 
 /* ============ WHY ============ */
-.why { background: linear-gradient(160deg, var(--leaf-deep), var(--leaf)); color: #fff; padding: 84px 0; }
+.why { background: var(--cream); color: var(--ink); padding: 84px 0; }
+.why .section-head--light h2 { color: var(--green-deep); }
+.why .kicker--light { color: var(--gold); }
 .why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.why__item { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 28px 22px; text-align: center; transition: transform .2s, background .2s; }
-.why__item:hover { transform: translateY(-6px); background: rgba(255,255,255,.12); }
+.why__item { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 22px; text-align: center; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s; }
+.why__item:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 .why__icon { font-size: 2.6rem; margin-bottom: 14px; }
-.why__item h3 { font-size: 1.1rem; margin-bottom: 8px; }
-.why__item p { font-size: .9rem; color: #d8e8e0; }
+.why__item h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--green-deep); }
+.why__item p { font-size: .9rem; color: var(--muted); }
 
 /* ============ TESTIMONIALS ============ */
-.testimonials { background: var(--cream); }
+.testimonials { background: #fff; }
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.quote { background: var(--white); border-radius: var(--radius); padding: 30px 26px; box-shadow: var(--shadow); border: 1px solid var(--line); position: relative; }
+.quote { background: var(--cream); border-radius: var(--radius); padding: 30px 26px; box-shadow: var(--shadow); border: 1px solid var(--line); position: relative; }
 .quote::before { content: "“"; font-family: Georgia; font-size: 4rem; color: var(--gold); line-height: 0; position: absolute; top: 30px; left: 20px; opacity: .35; }
 .quote p { font-style: italic; color: var(--ink); margin-bottom: 16px; padding-top: 14px; }
 .quote footer { font-weight: 600; color: var(--green-dark); font-size: .92rem; }
