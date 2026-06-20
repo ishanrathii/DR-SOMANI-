@@ -1,19 +1,20 @@
 /* ============ DESIGN TOKENS ============ */
 :root {
-  /* Brand palette — from Dr Somani's Homoeopathy logo & card */
-  --green: #1f2d6e;        /* primary = brand navy */
+  /* Brand palette — drawn straight from the logo: red · navy/black · green · light blue */
+  --green: #1f2d6e;        /* primary = brand navy (logo text) */
   --green-dark: #18255c;
-  --green-deep: #14204f;
-  --cream: #eef4fc;        /* soft sky-blue background */
+  --green-deep: #131c44;   /* near-black navy */
+  --cream: #eaf3fb;        /* light blue (logo background) */
   --gold: #e23b3b;         /* accent / CTA = flower red */
   --gold-dark: #c62f2f;
-  --leaf: #4f9e2f;         /* hands green — used for ticks/success */
-  --ink: #1c2333;
-  --muted: #5a6478;
-  --line: #d9e3f1;
+  --leaf: #4f9e2f;         /* hands green */
+  --leaf-deep: #2f7d22;
+  --ink: #161d33;          /* near-black for body text */
+  --muted: #586079;
+  --line: #d6e2f2;
   --white: #ffffff;
-  --shadow: 0 10px 30px rgba(31, 45, 110, .10);
-  --shadow-lg: 0 20px 50px rgba(31, 45, 110, .16);
+  --shadow: 0 10px 30px rgba(20, 30, 70, .10);
+  --shadow-lg: 0 20px 50px rgba(20, 30, 70, .16);
   --radius: 18px;
   --radius-sm: 12px;
   --maxw: 1140px;
@@ -24,7 +25,8 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--ink);
-  background: var(--cream);
+  background: linear-gradient(180deg, #f4f9ff 0%, #e3eefb 100%);
+  background-attachment: fixed;
   line-height: 1.65;
 }
 h1, h2, h3, h4, .brand strong { font-family: 'Poppins', sans-serif; line-height: 1.2; }
@@ -49,7 +51,7 @@ img { max-width: 100%; display: block; }
   display: inline-block; font-weight: 600; font-size: .8rem; letter-spacing: .12em;
   text-transform: uppercase; color: var(--green); margin-bottom: 10px;
 }
-.kicker--light { color: var(--gold); }
+.kicker--light { color: #d7f5c6; }
 
 /* ============ TOP BAR ============ */
 .topbar { background: var(--green-deep); color: #e9f1ec; font-size: .82rem; }
@@ -75,10 +77,14 @@ img { max-width: 100%; display: block; }
 .nav__toggle span { width: 26px; height: 3px; background: var(--green-deep); border-radius: 3px; transition: .3s; }
 
 /* ============ HERO ============ */
-.hero { background: radial-gradient(1200px 600px at 85% -10%, rgba(46,125,91,.10), transparent 60%), var(--cream); padding: 70px 0 80px; position: relative; overflow: hidden; }
-.hero::before { content: "🌿"; position: absolute; font-size: 22rem; right: -60px; bottom: -80px; opacity: .04; pointer-events: none; }
+.hero { background:
+    radial-gradient(1000px 520px at 88% -12%, rgba(79,158,47,.14), transparent 60%),
+    radial-gradient(820px 520px at -5% 115%, rgba(226,59,59,.07), transparent 55%),
+    linear-gradient(180deg, #f4f9ff, #e3eefb);
+  padding: 70px 0 80px; position: relative; overflow: hidden; }
+.hero::before { content: "🌸"; position: absolute; font-size: 22rem; right: -60px; bottom: -80px; opacity: .05; pointer-events: none; }
 .hero__inner { display: grid; grid-template-columns: 1.3fr .9fr; gap: 50px; align-items: center; }
-.hero__eyebrow { display: inline-block; background: rgba(46,125,91,.1); color: var(--green-dark); padding: 7px 16px; border-radius: 50px; font-weight: 600; font-size: .85rem; margin-bottom: 20px; }
+.hero__eyebrow { display: inline-block; background: rgba(226,59,59,.10); color: var(--gold-dark); padding: 7px 16px; border-radius: 50px; font-weight: 600; font-size: .85rem; margin-bottom: 20px; }
 .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); color: var(--green-deep); margin-bottom: 18px; }
 .hero h1 span { color: var(--gold-dark); }
 .hero__slogan { font-family: 'Poppins', sans-serif; font-weight: 600; font-style: italic; color: var(--gold); font-size: 1.05rem; margin-bottom: 14px; }
@@ -137,12 +143,12 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
 .card { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 22px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s; }
 .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--green); }
-.card__icon { font-size: 2.4rem; width: 64px; height: 64px; border-radius: 16px; background: rgba(46,125,91,.1); display: grid; place-items: center; margin-bottom: 16px; }
+.card__icon { font-size: 2.4rem; width: 64px; height: 64px; border-radius: 16px; background: rgba(31,45,110,.08); display: grid; place-items: center; margin-bottom: 16px; }
 .card h3 { font-size: 1.08rem; color: var(--green-deep); margin-bottom: 8px; }
 .card p { font-size: .9rem; color: var(--muted); }
 
 /* ============ WHY ============ */
-.why { background: linear-gradient(160deg, var(--green-deep), var(--green)); color: #fff; padding: 84px 0; }
+.why { background: linear-gradient(160deg, var(--leaf-deep), var(--leaf)); color: #fff; padding: 84px 0; }
 .why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
 .why__item { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 28px 22px; text-align: center; transition: transform .2s, background .2s; }
 .why__item:hover { transform: translateY(-6px); background: rgba(255,255,255,.12); }
@@ -183,7 +189,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
   width: 100%; margin-top: 6px; padding: 12px 14px; border: 1px solid var(--line);
   border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: .95rem; background: #fff; color: var(--ink);
 }
-.contact__form input:focus, .contact__form select:focus, .contact__form textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(46,125,91,.12); }
+.contact__form input:focus, .contact__form select:focus, .contact__form textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(31,45,110,.15); }
 .contact__note { font-size: .8rem; color: var(--muted); text-align: center; margin-top: 12px; }
 
 /* ============ FOOTER ============ */
