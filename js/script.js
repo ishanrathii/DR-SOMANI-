@@ -24,6 +24,34 @@ window.addEventListener('scroll', () => {
 // ===== Footer year =====
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// ===== Reviews marquee: duplicate for a seamless loop =====
+const reviewTrack = document.getElementById('reviewTrack');
+if (reviewTrack) {
+  reviewTrack.innerHTML += reviewTrack.innerHTML; // second copy lets -50% translate loop seamlessly
+}
+
+// ===== Treatment cards -> fill the enquiry form =====
+const conditionSelect = document.querySelector('#enquiryForm select[name="condition"]');
+const decode = (s) => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
+
+document.querySelectorAll('.card[data-condition]').forEach((card) => {
+  card.addEventListener('click', () => {
+    const wanted = decode(card.getAttribute('data-condition'));
+    if (conditionSelect) {
+      // match the matching <option> (handles &amp; etc.)
+      const opt = [...conditionSelect.options].find((o) => o.text.trim() === wanted.trim());
+      conditionSelect.value = opt ? opt.value : wanted;
+    }
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    if (conditionSelect) {
+      conditionSelect.classList.remove('field-flash');
+      void conditionSelect.offsetWidth; // restart animation
+      conditionSelect.classList.add('field-flash');
+      setTimeout(() => conditionSelect.focus({ preventScroll: true }), 600);
+    }
+  });
+});
+
 // ===== Enquiry form -> WhatsApp =====
 const form = document.getElementById('enquiryForm');
 form.addEventListener('submit', (e) => {
