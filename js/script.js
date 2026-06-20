@@ -60,16 +60,25 @@ form.addEventListener('submit', (e) => {
   const name = (data.get('name') || '').trim();
   const phone = (data.get('phone') || '').trim();
   const condition = data.get('condition') || '';
+  const branch = data.get('branch') || '';
   const message = (data.get('message') || '').trim();
 
   if (!name || !phone) {
     alert('Please enter your name and phone number.');
     return;
   }
+  if (!branch) {
+    alert('Please select your preferred branch (Pune, Jalgaon or Online).');
+    return;
+  }
 
-  let text = `Hi Dr Somani, I'd like to book a consultation.\n\nName: ${name}\nPhone: ${phone}`;
+  // route to the chosen branch's WhatsApp number
+  const numbers = { 'Jalgaon': '919270278668', 'Pune (Wakad)': '919834172124', 'Online': '919834172124' };
+  const toNumber = numbers[branch] || '919834172124';
+
+  let text = `Hi Dr Somani, I'd like to book a consultation.\n\nName: ${name}\nPhone: ${phone}\nBranch: ${branch}`;
   if (condition) text += `\nConcern: ${condition}`;
   if (message) text += `\nMessage: ${message}`;
 
-  window.open(`https://wa.me/919834172124?text=${encodeURIComponent(text)}`, '_blank');
+  window.open(`https://wa.me/${toNumber}?text=${encodeURIComponent(text)}`, '_blank');
 });

@@ -341,7 +341,6 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
         </p>
         <div class="hero__cta">
           <a href="#contact" class="btn btn--cta">Book Appointment</a>
-          <a href="https://wa.me/919834172124?text=Hi%20Dr%20Somani%2C%20I%27d%20like%20to%20book%20a%20consultation" target="_blank" rel="noopener" class="btn btn--whatsapp">💬 WhatsApp Now</a>
         </div>
         <div class="hero__assure">
           ✅ Safe &amp; side-effect-free &nbsp;·&nbsp; ✅ Boosts immunity &nbsp;·&nbsp; ✅ Long-lasting results
@@ -545,25 +544,20 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
             <option>Other</option>
           </select>
         </label>
+        <label>Preferred Branch
+          <select name="branch" required>
+            <option value="">Select a branch</option>
+            <option value="Pune (Wakad)">Pune — Wakad clinic</option>
+            <option value="Jalgaon">Jalgaon clinic</option>
+            <option value="Online">Online consultation</option>
+          </select>
+        </label>
         <label>Message<textarea name="message" rows="3" placeholder="Tell us briefly about your concern"></textarea></label>
         <button type="submit" class="btn btn--cta btn--block">Send via WhatsApp</button>
-        <p class="contact__note">Your enquiry opens a pre-filled WhatsApp message to the clinic.</p>
+        <p class="contact__note">Your enquiry opens a pre-filled WhatsApp message to the right clinic.</p>
       </form>
     </div>
   </section>
-
-  <!-- ============ CONTACT BAR (bottom) ============ -->
-  <div class="topbar">
-    <div class="container topbar__inner">
-      <div class="topbar__contact">
-        <a href="tel:+919834172124">📞 +91 98341 72124</a>
-        <a href="mailto:kushal.a.somani@gmail.com">✉️ kushal.a.somani@gmail.com</a>
-        <span class="topbar__loc">📍 Pune &amp; Jalgaon</span>
-        <a href="https://instagram.com/somanikushal" target="_blank" rel="noopener">📷 @somanikushal</a>
-      </div>
-      <div class="topbar__badge">🌐 Online Consultations Available</div>
-    </div>
-  </div>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
@@ -651,18 +645,27 @@ form.addEventListener('submit', (e) => {
   const name = (data.get('name') || '').trim();
   const phone = (data.get('phone') || '').trim();
   const condition = data.get('condition') || '';
+  const branch = data.get('branch') || '';
   const message = (data.get('message') || '').trim();
 
   if (!name || !phone) {
     alert('Please enter your name and phone number.');
     return;
   }
+  if (!branch) {
+    alert('Please select your preferred branch (Pune, Jalgaon or Online).');
+    return;
+  }
 
-  let text = `Hi Dr Somani, I'd like to book a consultation.\n\nName: ${name}\nPhone: ${phone}`;
+  // route to the chosen branch's WhatsApp number
+  const numbers = { 'Jalgaon': '919270278668', 'Pune (Wakad)': '919834172124', 'Online': '919834172124' };
+  const toNumber = numbers[branch] || '919834172124';
+
+  let text = `Hi Dr Somani, I'd like to book a consultation.\n\nName: ${name}\nPhone: ${phone}\nBranch: ${branch}`;
   if (condition) text += `\nConcern: ${condition}`;
   if (message) text += `\nMessage: ${message}`;
 
-  window.open(`https://wa.me/919834172124?text=${encodeURIComponent(text)}`, '_blank');
+  window.open(`https://wa.me/${toNumber}?text=${encodeURIComponent(text)}`, '_blank');
 });
 
 </script>
