@@ -1,5 +1,11 @@
 # Site Assets
 
+## Logo
+- `logo.svg` — a scalable recreation of the "Be Safe & Sure" flower-in-hands mark (used by default).
+- To use the **exact official logo**, drop the real file in as `assets/logo.png`.
+  The navbar, footer and favicon already prefer `logo.png` and fall back to `logo.svg` if it's missing —
+  so no code change is needed, just add the file and push.
+
 ## Doctor photo — REQUIRED
 Add the photo of **Dr Kushal A Somani** here named exactly:
 

@@ -1,17 +1,19 @@
 /* ============ DESIGN TOKENS ============ */
 :root {
-  --green: #2E7D5B;
-  --green-dark: #245f46;
-  --green-deep: #1d4d39;
-  --cream: #FAF7F0;
-  --gold: #C9A24B;
-  --gold-dark: #b08c38;
-  --ink: #1f2a25;
-  --muted: #5e6b64;
-  --line: #e7e2d6;
+  /* Brand palette — from Dr Somani's Homoeopathy logo & card */
+  --green: #1f2d6e;        /* primary = brand navy */
+  --green-dark: #18255c;
+  --green-deep: #14204f;
+  --cream: #eef4fc;        /* soft sky-blue background */
+  --gold: #e23b3b;         /* accent / CTA = flower red */
+  --gold-dark: #c62f2f;
+  --leaf: #4f9e2f;         /* hands green — used for ticks/success */
+  --ink: #1c2333;
+  --muted: #5a6478;
+  --line: #d9e3f1;
   --white: #ffffff;
-  --shadow: 0 10px 30px rgba(31, 42, 37, .08);
-  --shadow-lg: 0 20px 50px rgba(31, 42, 37, .14);
+  --shadow: 0 10px 30px rgba(31, 45, 110, .10);
+  --shadow-lg: 0 20px 50px rgba(31, 45, 110, .16);
   --radius: 18px;
   --radius-sm: 12px;
   --maxw: 1140px;
@@ -37,7 +39,7 @@ img { max-width: 100%; display: block; }
   border: none; cursor: pointer; transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
   font-family: 'Inter', sans-serif;
 }
-.btn--cta { background: var(--gold); color: #2a2310; box-shadow: 0 8px 20px rgba(201,162,75,.35); }
+.btn--cta { background: var(--gold); color: #fff; box-shadow: 0 8px 20px rgba(226,59,59,.35); }
 .btn--cta:hover { background: var(--gold-dark); transform: translateY(-2px); }
 .btn--whatsapp { background: #25D366; color: #fff; box-shadow: 0 8px 20px rgba(37,211,102,.3); }
 .btn--whatsapp:hover { transform: translateY(-2px); }
@@ -54,21 +56,21 @@ img { max-width: 100%; display: block; }
 .topbar__inner { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; padding-bottom: 8px; flex-wrap: wrap; gap: 6px 18px; }
 .topbar__contact { display: flex; gap: 18px; flex-wrap: wrap; }
 .topbar a:hover { color: var(--gold); }
-.topbar__badge { background: rgba(201,162,75,.18); color: #f3e6c4; padding: 3px 12px; border-radius: 50px; font-weight: 600; }
+.topbar__badge { background: rgba(255,255,255,.14); color: #fff; padding: 3px 12px; border-radius: 50px; font-weight: 600; }
 
 /* ============ NAVBAR ============ */
 .nav { position: sticky; top: 0; z-index: 100; background: rgba(250,247,240,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); transition: box-shadow .25s ease; }
 .nav.scrolled { box-shadow: var(--shadow); }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 74px; }
 .brand { display: flex; align-items: center; gap: 12px; }
-.brand__mark { width: 44px; height: 44px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-family: 'Poppins'; font-weight: 700; font-size: 1.3rem; box-shadow: var(--shadow); }
+.brand__mark { width: 48px; height: 48px; object-fit: contain; display: block; }
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand__text strong { font-size: 1.1rem; color: var(--green-deep); }
 .brand__text small { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
 .nav__links { display: flex; align-items: center; gap: 26px; }
 .nav__links a { font-weight: 500; font-size: .95rem; color: var(--ink); transition: color .2s; }
 .nav__links a:not(.btn):hover { color: var(--green); }
-.nav__cta { color: #2a2310; }
+.nav__cta { color: #fff; }
 .nav__toggle { display: none; background: none; border: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
 .nav__toggle span { width: 26px; height: 3px; background: var(--green-deep); border-radius: 3px; transition: .3s; }
 
@@ -79,6 +81,7 @@ img { max-width: 100%; display: block; }
 .hero__eyebrow { display: inline-block; background: rgba(46,125,91,.1); color: var(--green-dark); padding: 7px 16px; border-radius: 50px; font-weight: 600; font-size: .85rem; margin-bottom: 20px; }
 .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); color: var(--green-deep); margin-bottom: 18px; }
 .hero h1 span { color: var(--gold-dark); }
+.hero__slogan { font-family: 'Poppins', sans-serif; font-weight: 600; font-style: italic; color: var(--gold); font-size: 1.05rem; margin-bottom: 14px; }
 .hero__lead { font-size: 1.12rem; color: var(--muted); max-width: 540px; margin-bottom: 28px; }
 .hero__cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 22px; }
 .hero__assure { font-size: .92rem; color: var(--green-dark); font-weight: 500; }
@@ -90,7 +93,7 @@ img { max-width: 100%; display: block; }
 .hero__role { color: var(--gold-dark); font-weight: 600; margin-bottom: 16px; }
 .hero__points { list-style: none; text-align: left; margin: 0 auto 22px; display: inline-block; }
 .hero__points li { position: relative; padding-left: 26px; margin-bottom: 9px; color: var(--muted); font-size: .95rem; }
-.hero__points li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.hero__points li::before { content: "✓"; position: absolute; left: 0; color: var(--leaf); font-weight: 700; }
 
 /* ============ STATS ============ */
 .stats { background: var(--green); color: #fff; padding: 36px 0; }
@@ -111,7 +114,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .about__media { position: relative; }
 .about__photo { width: 100%; border-radius: var(--radius); aspect-ratio: 4/5; object-fit: cover; object-position: center top; box-shadow: var(--shadow); border: 1px solid var(--line); }
 .about__photo--fallback { background: linear-gradient(135deg, #eaf3ee, #f7f1e1); display: grid; place-items: center; font-size: 8rem; }
-.about__exp { position: absolute; right: -10px; bottom: -10px; background: var(--gold); color: #2a2310; border-radius: var(--radius-sm); padding: 16px 22px; font-family: 'Poppins'; font-weight: 700; font-size: 2rem; text-align: center; box-shadow: var(--shadow-lg); line-height: 1; }
+.about__exp { position: absolute; right: -10px; bottom: -10px; background: var(--gold); color: #fff; border-radius: var(--radius-sm); padding: 16px 22px; font-family: 'Poppins'; font-weight: 700; font-size: 2rem; text-align: center; box-shadow: var(--shadow-lg); line-height: 1; }
 .about__exp span { display: block; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
 .about__content h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); color: var(--green-deep); margin-bottom: 16px; }
 .about__content p { color: var(--muted); margin-bottom: 16px; }

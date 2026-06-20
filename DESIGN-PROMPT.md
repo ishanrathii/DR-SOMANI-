@@ -7,10 +7,14 @@
 Build a modern, trust-inspiring, **mobile-first** website for **"Dr Somani's Homoeopathy"**,
 a homoeopathy clinic run by **Dr Kushal Somani** with **27 years of experience**.
 
-**Look & feel:** calm, holistic-healing aesthetic.
-- Palette: deep healing green `#2E7D5B`, warm cream `#FAF7F0`, soft gold accent `#C9A24B`.
+**Brand:** "Be Safe & Sure" · "Think Homoeopathy, Think Somani" · Since 1998.
+Logo = red gerbera flower cupped in green hands with navy wordmark.
+
+**Look & feel:** clean, trustworthy, brand-aligned.
+- Palette (from the logo/card): brand **navy** `#1f2d6e` (primary), **flower red** `#e23b3b` (accent / CTA),
+  **hands green** `#4f9e2f` (success ticks), soft **sky-blue** `#eef4fc` backgrounds, white cards.
 - Fonts: **Poppins** for headings, **Inter** for body.
-- Rounded soft cards, gentle shadows, generous whitespace, subtle leaf/natural motifs.
+- Rounded soft cards, gentle shadows, generous whitespace.
 
 **Structure (top to bottom):**
 1. **Slim dark-green top utility bar** — phone (+91 98341 72124), email (kushal.a.somani@gmail.com),
