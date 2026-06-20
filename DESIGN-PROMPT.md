@@ -35,12 +35,14 @@ a homoeopathy clinic run by **Dr Kushal Somani** with **27 years of experience**
 ## Business Facts
 | Field | Value |
 |---|---|
-| Doctor | Dr Kushal Somani |
+| Doctors | Dr Kushal A Somani — M.D (Hom), Reg. 82170 · Dr Antim Somani — B.H.M.S, Reg. 40721 |
 | Clinic | Dr Somani's Homoeopathy |
 | Experience | 27 years |
 | Specialities | Skin & Vitiligo, Allergies, Migraine, PCOD, Kidney Stones, Acidity & Digestion, Paediatric, Mental Health |
 | Promise | Safe, side-effect-free · boosts immunity · long-lasting results |
-| Locations | Pune & Jalgaon · Online consultations |
-| Phone | 9834172124 |
+| Pune clinic | One Place Wakad, Office No. E-105, First Floor, Pink City Road, above Sanghvi Jewellers, Wakad, Pune 411057 · 📞 9834172124 |
+| Jalgaon clinic | First Floor, Chitra Chowk – JMP Market, above Agarwal Sweet Mart, Jalgaon 425001 · 📞 9270278668 |
+| Online | Video consultations across India |
 | Email | kushal.a.somani@gmail.com |
 | Instagram | @somanikushal |
+| Doctor photo | assets/dr-kushal-somani.jpg |

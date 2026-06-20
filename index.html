@@ -47,9 +47,9 @@
       <nav class="nav__links" id="navLinks">
         <a href="#home">Home</a>
         <a href="#about">About</a>
+        <a href="#doctors">Doctors</a>
         <a href="#treatments">Treatments</a>
         <a href="#why">Why Homoeopathy</a>
-        <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn--cta nav__cta">Book Appointment</a>
       </nav>
@@ -80,9 +80,9 @@
       </div>
 
       <div class="hero__card">
-        <div class="hero__avatar">👨‍⚕️</div>
-        <h3>Dr Kushal Somani</h3>
-        <p class="hero__role">Homoeopathy Consultant</p>
+        <img class="hero__avatar" src="assets/dr-kushal-somani.jpg" alt="Dr Kushal A Somani" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'hero__avatar hero__avatar--fallback',textContent:'👨‍⚕️'}))" />
+        <h3>Dr Kushal A Somani</h3>
+        <p class="hero__role">M.D (Hom) · Reg. 82170</p>
         <ul class="hero__points">
           <li>27+ years of clinical experience</li>
           <li>Clinics in Pune &amp; Jalgaon</li>
@@ -107,23 +107,50 @@
   <section class="about" id="about">
     <div class="container about__inner">
       <div class="about__media">
-        <div class="about__photo">👨‍⚕️</div>
+        <img class="about__photo" src="assets/dr-kushal-somani.jpg" alt="Dr Kushal A Somani outside the clinic" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'about__photo about__photo--fallback',textContent:'👨‍⚕️'}))" />
         <div class="about__exp">27<span>Years</span></div>
       </div>
       <div class="about__content">
-        <span class="kicker">About the Doctor</span>
+        <span class="kicker">About the Clinic</span>
         <h2>Compassionate, root-cause healing for over two decades</h2>
         <p>
-          For 27 years, Dr Kushal Somani has helped patients find lasting relief through
-          classical homoeopathy. His practice focuses on understanding each patient deeply and
-          treating the underlying cause — not just the symptoms — so results last.
+          For 27 years, <strong>Dr Kushal A Somani</strong> has helped patients find lasting relief
+          through classical homoeopathy — understanding each patient deeply and treating the
+          underlying cause, not just the symptoms, so results last.
         </p>
         <p>
-          With clinics in <strong>Pune</strong> and <strong>Jalgaon</strong> and online
-          consultations available across India, quality homoeopathic care is always within reach —
-          gentle, safe and tailored to you.
+          Today, alongside <strong>Dr Antim Somani</strong>, the clinic serves patients from
+          <strong>Pune</strong> and <strong>Jalgaon</strong>, with online consultations available
+          across India. Quality homoeopathic care is always within reach — gentle, safe and tailored to you.
         </p>
-        <a href="#contact" class="btn btn--cta">Meet Dr Somani</a>
+        <a href="#contact" class="btn btn--cta">Book a Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DOCTORS ============ -->
+  <section class="doctors" id="doctors">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Meet the Doctors</span>
+        <h2>Qualified, Caring Homoeopaths</h2>
+        <p>Registered practitioners dedicated to safe, individualised homoeopathic care.</p>
+      </div>
+      <div class="doctors__grid">
+        <article class="doctor">
+          <img class="doctor__photo" src="assets/dr-kushal-somani.jpg" alt="Dr Kushal A Somani" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'doctor__photo doctor__photo--fallback',textContent:'👨‍⚕️'}))" />
+          <h3>Dr Kushal A Somani</h3>
+          <p class="doctor__qual">M.D (Hom)</p>
+          <p class="doctor__reg">Reg. No. 82170</p>
+          <p class="doctor__desc">27 years of experience in chronic and complex cases — skin, vitiligo, PCOD, migraine and more.</p>
+        </article>
+        <article class="doctor">
+          <div class="doctor__photo doctor__photo--fallback">👨‍⚕️</div>
+          <h3>Dr Antim Somani</h3>
+          <p class="doctor__qual">B.H.M.S</p>
+          <p class="doctor__reg">Reg. No. 40721</p>
+          <p class="doctor__desc">Committed to gentle, patient-first homoeopathic care for the whole family.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -199,15 +226,30 @@
         <p>Tired of endless doctor visits? Let's find you long-lasting relief. Reach out to book an in-clinic or online consultation.</p>
 
         <ul class="contact__list">
-          <li><span>📞</span><a href="tel:+919834172124">+91 98341 72124</a></li>
+          <li><span>📞</span><a href="tel:+919834172124">+91 98341 72124</a> <em>(Pune)</em></li>
+          <li><span>📞</span><a href="tel:+919270278668">+91 92702 78668</a> <em>(Jalgaon)</em></li>
           <li><span>✉️</span><a href="mailto:kushal.a.somani@gmail.com">kushal.a.somani@gmail.com</a></li>
           <li><span>📷</span><a href="https://instagram.com/somanikushal" target="_blank" rel="noopener">@somanikushal</a></li>
         </ul>
 
         <div class="contact__clinics">
-          <div class="clinic"><h4>🏥 Pune Clinic</h4><p>In-clinic consultations available</p></div>
-          <div class="clinic"><h4>🏥 Jalgaon Clinic</h4><p>In-clinic consultations available</p></div>
-          <div class="clinic"><h4>🌐 Online</h4><p>Video consultations across India</p></div>
+          <div class="clinic">
+            <h4>🏥 Wakad, Pune</h4>
+            <p>One Place Wakad, Office No. E-105, First Floor, Pink City Road, above Sanghvi Jewellers, Wakad, Pune – 411057</p>
+            <p class="clinic__actions">
+              <a href="tel:+919834172124">📞 98341 72124</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=One+Place+Wakad+Pink+City+Road+Pune+411057" target="_blank" rel="noopener">📍 Directions</a>
+            </p>
+          </div>
+          <div class="clinic">
+            <h4>🏥 Jalgaon</h4>
+            <p>First Floor, Chitra Chowk – JMP Market, above Agarwal Sweet Mart, Jalgaon – 425001</p>
+            <p class="clinic__actions">
+              <a href="tel:+919270278668">📞 92702 78668</a>
+              <a href="https://www.google.com/maps/search/?api=1&query=Chitra+Chowk+JMP+Market+Jalgaon+425001" target="_blank" rel="noopener">📍 Directions</a>
+            </p>
+          </div>
+          <div class="clinic"><h4>🌐 Online Consultations</h4><p>Video consultations available across India.</p></div>
         </div>
       </div>
 

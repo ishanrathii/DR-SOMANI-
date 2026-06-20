@@ -84,7 +84,8 @@ img { max-width: 100%; display: block; }
 .hero__assure { font-size: .92rem; color: var(--green-dark); font-weight: 500; }
 
 .hero__card { background: var(--white); border-radius: var(--radius); padding: 32px 28px; box-shadow: var(--shadow-lg); text-align: center; border: 1px solid var(--line); }
-.hero__avatar { font-size: 4rem; background: linear-gradient(135deg, #eaf3ee, #f7f1e1); width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center; }
+.hero__avatar { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 16px; object-fit: cover; object-position: center top; border: 4px solid #fff; box-shadow: var(--shadow); }
+.hero__avatar--fallback { font-size: 4rem; background: linear-gradient(135deg, #eaf3ee, #f7f1e1); display: grid; place-items: center; }
 .hero__card h3 { font-size: 1.35rem; color: var(--green-deep); }
 .hero__role { color: var(--gold-dark); font-weight: 600; margin-bottom: 16px; }
 .hero__points { list-style: none; text-align: left; margin: 0 auto 22px; display: inline-block; }
@@ -108,12 +109,25 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 /* ============ ABOUT ============ */
 .about__inner { display: grid; grid-template-columns: .9fr 1.1fr; gap: 54px; align-items: center; }
 .about__media { position: relative; }
-.about__photo { background: linear-gradient(135deg, #eaf3ee, #f7f1e1); border-radius: var(--radius); aspect-ratio: 4/4; display: grid; place-items: center; font-size: 8rem; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.about__photo { width: 100%; border-radius: var(--radius); aspect-ratio: 4/5; object-fit: cover; object-position: center top; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.about__photo--fallback { background: linear-gradient(135deg, #eaf3ee, #f7f1e1); display: grid; place-items: center; font-size: 8rem; }
 .about__exp { position: absolute; right: -10px; bottom: -10px; background: var(--gold); color: #2a2310; border-radius: var(--radius-sm); padding: 16px 22px; font-family: 'Poppins'; font-weight: 700; font-size: 2rem; text-align: center; box-shadow: var(--shadow-lg); line-height: 1; }
 .about__exp span { display: block; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
 .about__content h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); color: var(--green-deep); margin-bottom: 16px; }
 .about__content p { color: var(--muted); margin-bottom: 16px; }
 .about__content .btn { margin-top: 8px; }
+
+/* ============ DOCTORS ============ */
+.doctors { padding: 84px 0; background: var(--cream); }
+.doctors__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 380px)); gap: 28px; justify-content: center; }
+.doctor { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 26px; text-align: center; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s; }
+.doctor:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.doctor__photo { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto 16px; border: 4px solid #fff; box-shadow: var(--shadow); }
+.doctor__photo--fallback { background: linear-gradient(135deg, #eaf3ee, #f7f1e1); display: grid; place-items: center; font-size: 3.4rem; }
+.doctor h3 { color: var(--green-deep); font-size: 1.25rem; }
+.doctor__qual { color: var(--gold-dark); font-weight: 600; }
+.doctor__reg { color: var(--muted); font-size: .85rem; margin-bottom: 12px; }
+.doctor__desc { color: var(--muted); font-size: .92rem; }
 
 /* ============ TREATMENTS ============ */
 .treatments { background: var(--white); }
@@ -152,8 +166,12 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .contact__list a:hover { color: var(--green); }
 .contact__clinics { display: grid; gap: 12px; }
 .clinic { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 18px; }
-.clinic h4 { color: var(--green-deep); font-size: 1rem; margin-bottom: 2px; }
+.clinic h4 { color: var(--green-deep); font-size: 1rem; margin-bottom: 4px; }
 .clinic p { color: var(--muted); font-size: .88rem; }
+.clinic__actions { display: flex; gap: 16px; margin-top: 8px; }
+.clinic__actions a { color: var(--green-dark); font-weight: 600; font-size: .85rem; }
+.clinic__actions a:hover { color: var(--gold-dark); }
+.contact__list em { color: var(--muted); font-style: normal; font-size: .82rem; }
 
 .contact__form { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 28px; box-shadow: var(--shadow); }
 .contact__form h3 { color: var(--green-deep); margin-bottom: 18px; font-size: 1.3rem; }
@@ -187,6 +205,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
   .hero__inner, .about__inner, .contact__inner { grid-template-columns: 1fr; }
   .cards, .why__grid { grid-template-columns: repeat(2, 1fr); }
   .quotes { grid-template-columns: 1fr; }
+  .doctors__grid { grid-template-columns: 1fr; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .about__media { max-width: 360px; }
 
