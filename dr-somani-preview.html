@@ -414,7 +414,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
           <span class="doctor__more">View full profile →</span>
         </a>
         <a class="doctor" href="doctor-antim-somani.html">
-          <div class="doctor__photo doctor__photo--fallback">👨‍⚕️</div>
+          <img class="doctor__photo" src="assets/dr-antim-somani.jpg" alt="Dr Antim Somani" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'doctor__photo doctor__photo--fallback',textContent:'👨‍⚕️'}))" />
           <h3>Dr Antim Somani</h3>
           <p class="doctor__qual">B.H.M.S</p>
           <p class="doctor__reg">Reg. No. 40721</p>
@@ -657,9 +657,9 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  // route to the chosen branch's WhatsApp number
-  const numbers = { 'Jalgaon': '919270278668', 'Pune (Wakad)': '919834172124', 'Online': '919834172124' };
-  const toNumber = numbers[branch] || '919834172124';
+  // For now, all enquiries route to the main clinic number (9834172124).
+  // (Separate per-branch numbers can be added here later.)
+  const toNumber = '919834172124';
 
   let text = `Hi Dr Somani, I'd like to book a consultation.\n\nName: ${name}\nPhone: ${phone}\nBranch: ${branch}`;
   if (condition) text += `\nConcern: ${condition}`;

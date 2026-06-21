@@ -72,9 +72,9 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  // route to the chosen branch's WhatsApp number
-  const numbers = { 'Jalgaon': '919270278668', 'Pune (Wakad)': '919834172124', 'Online': '919834172124' };
-  const toNumber = numbers[branch] || '919834172124';
+  // For now, all enquiries route to the main clinic number (9834172124).
+  // (Separate per-branch numbers can be added here later.)
+  const toNumber = '919834172124';
 
   let text = `Hi Dr Somani, I'd like to book a consultation.\n\nName: ${name}\nPhone: ${phone}\nBranch: ${branch}`;
   if (condition) text += `\nConcern: ${condition}`;
