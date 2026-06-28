@@ -202,6 +202,8 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .marquee:hover .marquee__track { animation-play-state: paused; }
 .review { flex: 0 0 360px; max-width: 360px; }
 .review__stars { color: #f5a623; letter-spacing: 2px; margin-bottom: 8px; font-size: .95rem; }
+.review__stars .star-empty { color: #d6d9e2; }
+.review__stars span { color: var(--muted); font-size: .82rem; letter-spacing: 0; font-weight: 600; margin-left: 4px; }
 @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 
