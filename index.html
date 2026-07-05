@@ -17,6 +17,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" href="assets/logo.png" />
+  <script>
+    // set theme before paint to avoid a flash of the wrong theme
+    (function () {
+      try {
+        var t = localStorage.getItem('theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
 
@@ -39,6 +49,8 @@
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn--cta nav__cta">Book Appointment</a>
       </nav>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark / light mode">🌙</button>
 
       <button class="nav__toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -294,6 +306,7 @@
     <a href="tel:+919834172124" class="floater floater--call" aria-label="Call">📞</a>
   </div>
 
+  <script src="js/theme.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

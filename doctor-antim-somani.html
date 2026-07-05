@@ -11,6 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" href="assets/logo.png" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
 
@@ -20,7 +29,10 @@
         <img class="brand__mark" src="assets/logo.png" alt="Dr Somani's Homoeopathy logo" onerror="this.onerror=null;this.src='assets/logo.svg'" />
         <span class="brand__text"><strong>Dr Somani's</strong><small>Homoeopathy</small></span>
       </a>
-      <a href="index.html#doctors" class="backlink">← Back to all doctors</a>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <a href="index.html#doctors" class="backlink">← Back to all doctors</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark / light mode">🌙</button>
+      </div>
     </div>
   </header>
 
@@ -93,5 +105,7 @@
     <a href="https://wa.me/919834172124" target="_blank" rel="noopener" class="floater floater--wa" aria-label="WhatsApp">💬</a>
     <a href="tel:+919834172124" class="floater floater--call" aria-label="Call">📞</a>
   </div>
+
+  <script src="js/theme.js"></script>
 </body>
 </html>

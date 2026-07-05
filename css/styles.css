@@ -279,3 +279,52 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
   .topbar__contact { gap: 12px; }
   .footer__inner { flex-direction: column; text-align: center; }
 }
+
+/* ============ THEME TOGGLE BUTTON ============ */
+.theme-toggle {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
+  background: transparent; cursor: pointer; font-size: 1.1rem; line-height: 1;
+  display: grid; place-items: center; transition: background .2s, border-color .2s, transform .15s;
+  color: inherit; margin-left: 6px;
+}
+.theme-toggle:hover { background: rgba(127,127,127,.12); transform: translateY(-1px); }
+.subnav .theme-toggle, .nav__inner .theme-toggle { flex: 0 0 auto; }
+
+/* ============ DARK THEME ============ */
+:root[data-theme="dark"] {
+  --green: #e8ecf8;          /* primary text / headings become light */
+  --green-dark: #cfd6ea;
+  --green-deep: #f2f5fc;
+  --cream: #1b2540;          /* alternating surface */
+  --gold: #e8483d;           /* brighter red for dark contrast */
+  --gold-dark: #d13a30;
+  --leaf: #5cb14a;
+  --leaf-deep: #47953a;
+  --ink: #dbe0f1;            /* body text */
+  --muted: #9aa4c2;
+  --line: #2a3350;
+  --white: #161f36;          /* card/section surface */
+  --shadow: 0 12px 32px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 24px 56px rgba(0, 0, 0, .5);
+}
+:root[data-theme="dark"] body { background: #0e1526; }
+
+/* surfaces & bars that were hard-coded light */
+:root[data-theme="dark"] .nav { background: rgba(14,21,38,.85); }
+:root[data-theme="dark"] .hero { background:
+    radial-gradient(900px 480px at 92% -20%, rgba(232,72,61,.10), transparent 60%),
+    linear-gradient(180deg, #0e1526, #131c30); }
+:root[data-theme="dark"] .hero__eyebrow { background: rgba(255,255,255,.06); }
+:root[data-theme="dark"] .testimonials { background: #0e1526; }
+:root[data-theme="dark"] .why__item { background: var(--white); }
+:root[data-theme="dark"] .subnav { background: #131c30; }
+:root[data-theme="dark"] .profile { background: linear-gradient(180deg, #0e1526, #131c30); }
+:root[data-theme="dark"] .contact__form input,
+:root[data-theme="dark"] .contact__form select,
+:root[data-theme="dark"] .contact__form textarea { background: #10182b; color: var(--ink); }
+:root[data-theme="dark"] .review__stars .star-empty { color: #3b4566; }
+
+/* footer stays anchored dark regardless of flipped navy tokens */
+:root[data-theme="dark"] .footer { background: #0a1020; }
+:root[data-theme="dark"] .card__icon { background: rgba(232,72,61,.12); }
+:root[data-theme="dark"] .theme-toggle:hover { background: rgba(255,255,255,.10); }
