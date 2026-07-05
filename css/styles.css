@@ -70,7 +70,13 @@ img { max-width: 100%; display: block; }
 .brand__text small { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
 .nav__links { display: flex; align-items: center; gap: 26px; }
 .nav__links a { font-weight: 500; font-size: .95rem; color: var(--ink); transition: color .2s; }
-.nav__links a:not(.btn):hover { color: var(--green); }
+.nav__links a:not(.btn) { position: relative; }
+.nav__links a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0;
+  background: var(--gold); border-radius: 2px; transition: width .25s ease;
+}
+.nav__links a:not(.btn):hover { color: var(--gold); }
+.nav__links a:not(.btn):hover::after { width: 100%; }
 .nav__cta { color: #fff; }
 .nav__toggle { display: none; background: none; border: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
 .nav__toggle span { width: 26px; height: 3px; background: var(--green-deep); border-radius: 3px; transition: .3s; }
