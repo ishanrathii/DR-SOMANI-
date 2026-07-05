@@ -14,9 +14,8 @@
   <script>
     (function () {
       try {
-        var m = localStorage.getItem('theme') || 'system';
-        var t = m === 'dark' ? 'dark' : m === 'light' ? 'light'
-          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var m = localStorage.getItem('theme') || 'light';
+        var t = m === 'dark' ? 'dark' : m === 'system' ? 'blue' : 'light';
         document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     })();
@@ -34,7 +33,7 @@
       <div style="display:flex;align-items:center;gap:14px;">
         <a href="index.html#doctors" class="backlink">← Back to all doctors</a>
         <div class="theme-switch" id="themeSwitch" role="group" aria-label="Theme">
-          <button type="button" data-mode="system" aria-label="Match system theme" title="System">
+          <button type="button" data-mode="system" aria-label="System theme — dark blue" title="System (dark blue)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
           </button>
           <button type="button" data-mode="light" aria-label="Light theme" title="Light">

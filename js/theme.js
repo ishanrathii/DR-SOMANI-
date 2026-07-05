@@ -5,12 +5,12 @@
   const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
   function storedMode() {
-    try { return localStorage.getItem('theme') || 'system'; } catch (e) { return 'system'; }
+    try { return localStorage.getItem('theme') || 'light'; } catch (e) { return 'light'; }
   }
   function resolve(mode) {
-    if (mode === 'dark') return 'dark';
-    if (mode === 'light') return 'light';
-    return mq.matches ? 'dark' : 'light'; // system
+    if (mode === 'dark') return 'dark';     // red + black
+    if (mode === 'system') return 'blue';   // dark blue + red
+    return 'light';
   }
   function apply(mode) {
     root.setAttribute('data-theme', resolve(mode));

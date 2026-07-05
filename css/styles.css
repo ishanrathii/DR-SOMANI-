@@ -352,3 +352,47 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 /* footer anchored blackest */
 :root[data-theme="dark"] .footer { background: #060506; }
 :root[data-theme="dark"] .card__icon { background: rgba(255,77,67,.14); }
+
+/* ============ "SYSTEM" THEME — dark blue & red ============ */
+:root[data-theme="blue"] {
+  --green: #eaf0fb;          /* text / headings → light */
+  --green-dark: #d6dff2;
+  --green-deep: #ffffff;
+  --cream: #101b2e;          /* alternating surface */
+  --gold: #ff4d43;           /* red accent */
+  --gold-dark: #e23b34;
+  --leaf: #5cb14a;
+  --leaf-deep: #47953a;
+  --ink: #dbe3f4;            /* body text */
+  --muted: #93a0bd;
+  --line: #26324b;           /* blue-grey border */
+  --white: #152238;          /* dark-blue card surface */
+  --shadow: 0 12px 32px rgba(0, 0, 0, .45);
+  --shadow-lg: 0 24px 56px rgba(0, 0, 0, .6);
+}
+:root[data-theme="blue"] body { background: #0a1122; }              /* deep navy blue */
+:root[data-theme="blue"] .kicker { color: var(--gold); }
+:root[data-theme="blue"] .stat strong { color: #fff; }
+:root[data-theme="blue"] .nav { background: rgba(10,17,34,.9); }
+:root[data-theme="blue"] .hero { background:
+    radial-gradient(1000px 520px at 90% -15%, rgba(255,77,67,.14), transparent 60%),
+    radial-gradient(720px 460px at -5% 115%, rgba(41,74,140,.30), transparent 55%),
+    linear-gradient(180deg, #0a1122, #0f1c33); }
+:root[data-theme="blue"] .hero__eyebrow { background: rgba(255,77,67,.12); color: var(--gold); }
+:root[data-theme="blue"] .testimonials { background: #0a1122; }
+:root[data-theme="blue"] .why__item { background: var(--white); }
+:root[data-theme="blue"] .subnav { background: #0f1c33; }
+:root[data-theme="blue"] .profile { background:
+    radial-gradient(900px 480px at 92% -20%, rgba(255,77,67,.10), transparent 60%),
+    linear-gradient(180deg, #0a1122, #0f1c33); }
+:root[data-theme="blue"] .contact__form input,
+:root[data-theme="blue"] .contact__form select,
+:root[data-theme="blue"] .contact__form textarea { background: #0e1a2e; color: var(--ink); }
+:root[data-theme="blue"] .review__stars .star-empty { color: #37456b; }
+:root[data-theme="blue"] .card:hover,
+:root[data-theme="blue"] .doctor:hover { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,77,67,.25), var(--shadow-lg); }
+:root[data-theme="blue"] .footer { background: #070d1a; }
+:root[data-theme="blue"] .card__icon { background: rgba(255,77,67,.14); }
+:root[data-theme="blue"] .theme-switch button[aria-pressed="true"] {
+  background: #17253c; color: #fff; box-shadow: 0 0 0 1px rgba(255,77,67,.45);
+}
