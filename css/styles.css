@@ -280,23 +280,25 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
   .footer__inner { flex-direction: column; text-align: center; }
 }
 
-/* ============ THEME TOGGLE BUTTON ============ */
-.theme-toggle {
-  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
-  background: transparent; cursor: pointer; font-size: 1.1rem; line-height: 1;
-  display: grid; place-items: center; transition: background .2s, border-color .2s, transform .15s;
-  color: inherit; margin-left: 6px;
+/* ============ THEME SWITCH (System / Light / Dark) ============ */
+.theme-switch {
+  display: inline-flex; align-items: center; gap: 2px; margin-left: 8px;
+  background: rgba(127,127,127,.12); border: 1px solid var(--line);
+  border-radius: 50px; padding: 3px; flex: 0 0 auto;
 }
-.theme-toggle:hover { background: rgba(127,127,127,.12); transform: translateY(-1px); }
-.subnav .theme-toggle, .nav__inner .theme-toggle { flex: 0 0 auto; }
-/* active (dark on) state — red ring + glow */
-:root[data-theme="dark"] .theme-toggle {
-  border-color: var(--gold);
-  background: rgba(255,77,67,.16);
-  color: #fff;
-  box-shadow: 0 0 0 3px rgba(255,77,67,.18);
+.theme-switch button {
+  width: 34px; height: 30px; border: none; background: transparent; cursor: pointer;
+  border-radius: 50px; display: grid; place-items: center; color: var(--muted);
+  transition: background .2s, color .2s, box-shadow .2s;
 }
-:root[data-theme="dark"] .theme-toggle:hover { background: rgba(255,77,67,.28); }
+.theme-switch button svg { width: 17px; height: 17px; display: block; }
+.theme-switch button:hover { color: var(--green); }
+.theme-switch button[aria-pressed="true"] {
+  background: var(--white); color: var(--green); box-shadow: var(--shadow);
+}
+:root[data-theme="dark"] .theme-switch button[aria-pressed="true"] {
+  background: #221a1e; color: #fff; box-shadow: 0 0 0 1px rgba(255,77,67,.45);
+}
 
 /* ============ DARK THEME — red & black ============ */
 :root[data-theme="dark"] {
