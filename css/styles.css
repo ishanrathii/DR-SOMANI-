@@ -289,42 +289,58 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 }
 .theme-toggle:hover { background: rgba(127,127,127,.12); transform: translateY(-1px); }
 .subnav .theme-toggle, .nav__inner .theme-toggle { flex: 0 0 auto; }
+/* active (dark on) state — red ring + glow */
+:root[data-theme="dark"] .theme-toggle {
+  border-color: var(--gold);
+  background: rgba(255,77,67,.16);
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(255,77,67,.18);
+}
+:root[data-theme="dark"] .theme-toggle:hover { background: rgba(255,77,67,.28); }
 
-/* ============ DARK THEME ============ */
+/* ============ DARK THEME — red & black ============ */
 :root[data-theme="dark"] {
-  --green: #e8ecf8;          /* primary text / headings become light */
-  --green-dark: #cfd6ea;
-  --green-deep: #f2f5fc;
-  --cream: #1b2540;          /* alternating surface */
-  --gold: #e8483d;           /* brighter red for dark contrast */
-  --gold-dark: #d13a30;
+  --green: #f3edef;          /* primary text / headings → near-white */
+  --green-dark: #e5dcdf;
+  --green-deep: #ffffff;     /* main headings pure white */
+  --cream: #121013;          /* alternating surface — near-black */
+  --gold: #ff4d43;           /* bright brand red — the accent */
+  --gold-dark: #e23b34;
   --leaf: #5cb14a;
   --leaf-deep: #47953a;
-  --ink: #dbe0f1;            /* body text */
-  --muted: #9aa4c2;
-  --line: #2a3350;
-  --white: #161f36;          /* card/section surface */
-  --shadow: 0 12px 32px rgba(0, 0, 0, .35);
-  --shadow-lg: 0 24px 56px rgba(0, 0, 0, .5);
+  --ink: #ece6e9;            /* body text — soft white */
+  --muted: #a99fa4;
+  --line: #322a2e;           /* warm dark border */
+  --white: #191419;          /* card / section surface */
+  --shadow: 0 12px 32px rgba(0, 0, 0, .5);
+  --shadow-lg: 0 24px 56px rgba(0, 0, 0, .65);
 }
-:root[data-theme="dark"] body { background: #0e1526; }
+:root[data-theme="dark"] body { background: #0b0a0c; }              /* black */
+
+/* red accents on labels for the red-black look */
+:root[data-theme="dark"] .kicker { color: var(--gold); }
+:root[data-theme="dark"] .stat strong { color: #fff; }
 
 /* surfaces & bars that were hard-coded light */
-:root[data-theme="dark"] .nav { background: rgba(14,21,38,.85); }
+:root[data-theme="dark"] .nav { background: rgba(11,10,12,.9); }
 :root[data-theme="dark"] .hero { background:
-    radial-gradient(900px 480px at 92% -20%, rgba(232,72,61,.10), transparent 60%),
-    linear-gradient(180deg, #0e1526, #131c30); }
-:root[data-theme="dark"] .hero__eyebrow { background: rgba(255,255,255,.06); }
-:root[data-theme="dark"] .testimonials { background: #0e1526; }
+    radial-gradient(1000px 520px at 90% -15%, rgba(255,77,67,.16), transparent 60%),
+    radial-gradient(700px 460px at -5% 115%, rgba(255,77,67,.06), transparent 55%),
+    linear-gradient(180deg, #0b0a0c, #140e10); }
+:root[data-theme="dark"] .hero__eyebrow { background: rgba(255,77,67,.12); color: var(--gold); }
+:root[data-theme="dark"] .testimonials { background: #0b0a0c; }
 :root[data-theme="dark"] .why__item { background: var(--white); }
-:root[data-theme="dark"] .subnav { background: #131c30; }
-:root[data-theme="dark"] .profile { background: linear-gradient(180deg, #0e1526, #131c30); }
+:root[data-theme="dark"] .subnav { background: #140e10; }
+:root[data-theme="dark"] .profile { background:
+    radial-gradient(900px 480px at 92% -20%, rgba(255,77,67,.12), transparent 60%),
+    linear-gradient(180deg, #0b0a0c, #140e10); }
 :root[data-theme="dark"] .contact__form input,
 :root[data-theme="dark"] .contact__form select,
-:root[data-theme="dark"] .contact__form textarea { background: #10182b; color: var(--ink); }
-:root[data-theme="dark"] .review__stars .star-empty { color: #3b4566; }
+:root[data-theme="dark"] .contact__form textarea { background: #121013; color: var(--ink); }
+:root[data-theme="dark"] .review__stars .star-empty { color: #4a3b3d; }
+:root[data-theme="dark"] .card:hover,
+:root[data-theme="dark"] .doctor:hover { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,77,67,.25), var(--shadow-lg); }
 
-/* footer stays anchored dark regardless of flipped navy tokens */
-:root[data-theme="dark"] .footer { background: #0a1020; }
-:root[data-theme="dark"] .card__icon { background: rgba(232,72,61,.12); }
-:root[data-theme="dark"] .theme-toggle:hover { background: rgba(255,255,255,.10); }
+/* footer anchored blackest */
+:root[data-theme="dark"] .footer { background: #060506; }
+:root[data-theme="dark"] .card__icon { background: rgba(255,77,67,.14); }
