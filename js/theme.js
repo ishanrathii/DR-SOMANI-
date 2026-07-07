@@ -1,35 +1,36 @@
-// Theme switcher: System / Light / Dark (shared across all pages)
+// Theme toggle: single button cycling Light → Dark → System(blue)
 (function () {
   const root = document.documentElement;
-  const sw = document.getElementById('themeSwitch');
-  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const btn = document.getElementById('themeToggle');
+  const order = ['light', 'dark', 'system'];
+  const icon = { light: '🌙', dark: '☀️', system: '🔵' }; // 🌙/☀️ as the original toggle, 🔵 for the blue theme
+  const label = { light: 'Light', dark: 'Dark (red & black)', system: 'System (dark blue)' };
 
-  function storedMode() {
-    try { return localStorage.getItem('theme') || 'light'; } catch (e) { return 'light'; }
-  }
   function resolve(mode) {
     if (mode === 'dark') return 'dark';     // red + black
     if (mode === 'system') return 'blue';   // dark blue + red
     return 'light';
   }
+  function stored() {
+    try { return localStorage.getItem('theme') || 'light'; } catch (e) { return 'light'; }
+  }
   function apply(mode) {
     root.setAttribute('data-theme', resolve(mode));
-    if (sw) sw.querySelectorAll('button').forEach((b) => {
-      b.setAttribute('aria-pressed', String(b.dataset.mode === mode));
-    });
+    if (btn) {
+      btn.textContent = icon[mode] || '🌙';
+      btn.title = 'Theme: ' + (label[mode] || 'Light') + ' — click to change';
+      btn.setAttribute('aria-label', 'Theme: ' + (label[mode] || 'Light'));
+    }
   }
 
-  apply(storedMode());
+  apply(stored());
 
-  if (sw) {
-    sw.querySelectorAll('button').forEach((b) => {
-      b.addEventListener('click', () => {
-        const mode = b.dataset.mode;
-        try { localStorage.setItem('theme', mode); } catch (e) {}
-        apply(mode);
-      });
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const i = order.indexOf(stored());
+      const next = order[(i + 1) % order.length];
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      apply(next);
     });
   }
-  // keep in sync with the OS when in "system" mode
-  mq.addEventListener('change', () => { if (storedMode() === 'system') apply('system'); });
 })();
