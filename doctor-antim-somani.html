@@ -106,6 +106,26 @@
     <a href="tel:+919834172124" class="floater floater--call" aria-label="Call">📞</a>
   </div>
 
+  <button class="ai-launcher" id="aiLauncher" aria-label="Chat with our assistant">
+    <span class="ai-launcher__dot">🌸</span>
+    <span class="ai-launcher__label">Ask our assistant</span>
+  </button>
+  <section class="ai-panel" id="aiPanel" aria-label="Dr Somani's Homoeopathy assistant">
+    <header class="ai-head">
+      <img class="ai-head__logo" src="assets/logo.png" alt="Dr Somani's Homoeopathy" onerror="this.onerror=null;this.src='assets/logo.svg'" />
+      <div class="ai-head__title"><strong>Sanjeevani</strong><small>Dr Somani's Homoeopathy assistant</small></div>
+      <button class="ai-head__close" id="aiClose" aria-label="Close chat">×</button>
+    </header>
+    <div class="ai-messages" id="aiMessages"></div>
+    <button class="ai-handoff hidden" id="aiHandoff">📤 Send my details to the clinic</button>
+    <form class="ai-form" id="aiForm" autocomplete="off">
+      <input type="text" id="aiInput" placeholder="Type your message…" aria-label="Message" />
+      <button type="submit" id="aiSend" aria-label="Send">➤</button>
+    </form>
+  </section>
+
   <script src="js/theme.js"></script>
+  <script src="js/ai-config.js"></script>
+  <script src="js/chat.js"></script>
 </body>
 </html>
