@@ -319,7 +319,10 @@
     </header>
     <div class="ai-messages" id="aiMessages"></div>
     <button class="ai-handoff hidden" id="aiHandoff">📤 Send my details to the clinic</button>
+    <div class="ai-attach-chip hidden" id="aiChip"></div>
     <form class="ai-form" id="aiForm" autocomplete="off">
+      <input type="file" id="aiFile" accept="image/*,application/pdf" hidden />
+      <button type="button" class="ai-attach" id="aiAttach" aria-label="Attach a report (optional)" title="Attach a report (optional)">📎</button>
       <input type="text" id="aiInput" placeholder="Type your message…" aria-label="Message" />
       <button type="submit" id="aiSend" aria-label="Send">➤</button>
     </form>

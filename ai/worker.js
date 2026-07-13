@@ -33,7 +33,7 @@ COMMUNICATION STYLE:
 
 CONSULTATION FLOW (adapt to the case — gather the essentials for everyone, go deeper for chronic/complex cases, keep it light for simple ones; do NOT force every step or interrogate):
 1. Intake: name, age, gender, main complaint (chief complaint), how long it has been present, and whether it is improving or worsening.
-2. Optional medical reports: ask once, clearly optional — "Do you have any recent medical reports (blood tests, scans, prescriptions) you'd like to share? This is completely optional." The chat is text-only, so ask them to type key values (e.g. sugar or thyroid levels) or to bring the reports to the consultation. If shared, thank them and use them ONLY as supporting information, never as a final diagnosis. If not shared, continue politely and do NOT ask again.
+2. Optional medical reports: ask once, clearly optional — "If you have any recent medical reports (blood tests, scans, prescriptions), you can attach a photo or PDF using the 📎 button, or just type the key values (e.g. sugar or thyroid levels). This is completely optional." If they attach or type a report, thank them and use it ONLY as supporting information, never as a final diagnosis; read the values carefully and, if an image is unclear, gently ask them to confirm a number. If they prefer not to share, continue politely and do NOT ask again.
 3. Family history: gently ask if they or close family have any of: diabetes, high blood pressure, thyroid disorders, heart disease, asthma, cancer, TB, skin diseases, allergies, or mental-health issues. If yes, ask who is affected and for how long.
 4. Personal history: past major illnesses, surgeries, current medicines/supplements, ongoing treatments.
 5. Symptom details: location, sensation, what makes it better or worse (modalities), and intensity.
@@ -112,17 +112,51 @@ export default {
     }
 
     const mode = body.mode === "summary" ? "summary" : "chat";
-    // keep only clean user/assistant turns, cap history length
+    // keep only clean user/assistant turns, cap history length, and
+    // normalize content: allow a plain string OR an array of safe blocks
+    // (text / image / document) so patients can optionally attach a report.
+    const MAX_ATTACH = 5 * 1024 * 1024; // ~5 MB of base64 per file
     const messages = (Array.isArray(body.messages) ? body.messages : [])
-      .filter(
-        (m) =>
-          m &&
-          (m.role === "user" || m.role === "assistant") &&
-          typeof m.content === "string" &&
-          m.content.trim()
-      )
-      .slice(-24)
-      .map((m) => ({ role: m.role, content: m.content.slice(0, 4000) }));
+      .filter((m) => m && (m.role === "user" || m.role === "assistant"))
+      .map((m) => ({ role: m.role, content: normalizeContent(m.content, m.role) }))
+      .filter((m) => m.content !== null)
+      .slice(-24);
+
+    function normalizeContent(content, role) {
+      if (typeof content === "string") {
+        const t = content.trim();
+        return t ? t.slice(0, 4000) : null;
+      }
+      // Assistants only ever send text; ignore any block arrays from them.
+      if (role === "assistant" || !Array.isArray(content)) return null;
+      const blocks = [];
+      for (const b of content) {
+        if (!b || typeof b !== "object") continue;
+        if (b.type === "text" && typeof b.text === "string" && b.text.trim()) {
+          blocks.push({ type: "text", text: b.text.slice(0, 4000) });
+        } else if (
+          (b.type === "image" || b.type === "document") &&
+          b.source &&
+          b.source.type === "base64" &&
+          typeof b.source.data === "string" &&
+          b.source.data.length <= MAX_ATTACH &&
+          typeof b.source.media_type === "string" &&
+          (b.type === "image"
+            ? /^image\/(png|jpe?g|gif|webp)$/.test(b.source.media_type)
+            : b.source.media_type === "application/pdf")
+        ) {
+          blocks.push({
+            type: b.type,
+            source: {
+              type: "base64",
+              media_type: b.source.media_type,
+              data: b.source.data,
+            },
+          });
+        }
+      }
+      return blocks.length ? blocks : null;
+    }
 
     if (mode === "summary") {
       messages.push({ role: "user", content: SUMMARY_INSTRUCTION });
