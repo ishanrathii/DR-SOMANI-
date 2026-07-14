@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dr Somani's Homoeopathy | 27 Years of Trusted Homoeopathic Care — Pune &amp; Jalgaon</title>
   <meta name="description" content="Dr Kushal Somani — 27 years of safe, side-effect-free homoeopathic treatment for Skin & Vitiligo, Allergies, Migraine, PCOD, Kidney Stones, Acidity, Paediatric & Mental Health. Clinics in Pune & Jalgaon. Online consultations available." />
-  <meta name="theme-color" content="#1f2d6e" />
+  <meta name="theme-color" content="#14213d" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Dr Somani's Homoeopathy — 27 Years of Trusted Care" />
@@ -17,16 +17,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" href="assets/logo.png" />
-  <script>
-    // set theme before paint to avoid a flash of the wrong theme
-    (function () {
-      try {
-        var m = localStorage.getItem('theme') || 'light';
-        var t = m === 'dark' ? 'dark' : m === 'system' ? 'blue' : 'light';
-        document.documentElement.setAttribute('data-theme', t);
-      } catch (e) {}
-    })();
-  </script>
 </head>
 <body>
 
@@ -49,8 +39,6 @@
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn--cta nav__cta">Book Appointment</a>
       </nav>
-
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
 
       <button class="nav__toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -93,7 +81,7 @@
 
   <!-- ============ TRUST STRIP ============ -->
   <section class="stats">
-    <div class="container stats__grid">
+    <div class="container stats__grid reveal-stagger">
       <div class="stat"><strong>27+</strong><span>Years of Service</span></div>
       <div class="stat"><strong>8</strong><span>Specialised Treatments</span></div>
       <div class="stat"><strong>2</strong><span>Clinics — Pune &amp; Jalgaon</span></div>
@@ -104,11 +92,11 @@
   <!-- ============ ABOUT ============ -->
   <section class="about" id="about">
     <div class="container about__inner">
-      <div class="about__media">
+      <div class="about__media reveal">
         <img class="about__photo" src="assets/dr-kushal-somani.jpg" alt="Dr Kushal A Somani outside the clinic" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'about__photo about__photo--fallback',textContent:'👨‍⚕️'}))" />
         <div class="about__exp">27<span>Years</span></div>
       </div>
-      <div class="about__content">
+      <div class="about__content reveal">
         <span class="kicker">About the Clinic</span>
         <h2>Compassionate, root-cause healing for over two decades</h2>
         <p>
@@ -135,7 +123,7 @@
         <p>Select the condition you're facing — we'll start your enquiry for that treatment.</p>
       </div>
 
-      <div class="cards">
+      <div class="cards reveal-stagger">
         <button type="button" class="card" data-condition="Skin Diseases &amp; Vitiligo"><div class="card__icon">🩹</div><h3>Skin Diseases &amp; Vitiligo</h3><p>Lasting relief for vitiligo, psoriasis, eczema and stubborn skin conditions.</p><span class="card__pick">Select this →</span></button>
         <button type="button" class="card" data-condition="Allergies"><div class="card__icon">🤧</div><h3>Allergies</h3><p>Treating the root cause of recurring allergies and seasonal reactions.</p><span class="card__pick">Select this →</span></button>
         <button type="button" class="card" data-condition="Migraine"><div class="card__icon">🧠</div><h3>Migraine</h3><p>Gentle, long-term management of chronic migraines and headaches.</p><span class="card__pick">Select this →</span></button>
@@ -157,7 +145,7 @@
         <h2>Qualified, Caring Homoeopaths</h2>
         <p>Registered practitioners dedicated to safe, individualised homoeopathic care.</p>
       </div>
-      <div class="doctors__grid">
+      <div class="doctors__grid reveal-stagger">
         <a class="doctor" href="doctor-kushal-somani.html">
           <img class="doctor__photo" src="assets/dr-kushal-somani.jpg" alt="Dr Kushal A Somani" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'doctor__photo doctor__photo--fallback',textContent:'👨‍⚕️'}))" />
           <h3>Dr Kushal A Somani</h3>
@@ -185,7 +173,7 @@
         <span class="kicker kicker--light">The Somani Difference</span>
         <h2>Why Choose Homoeopathy?</h2>
       </div>
-      <div class="why__grid">
+      <div class="why__grid reveal-stagger">
         <div class="why__item"><div class="why__icon">🛡️</div><h3>Safe &amp; Side-Effect-Free</h3><p>Natural medicines that are gentle on the body and safe for all ages.</p></div>
         <div class="why__item"><div class="why__icon">⚡</div><h3>Boosts Immunity</h3><p>Strengthens your body's natural defences from within.</p></div>
         <div class="why__item"><div class="why__icon">🌱</div><h3>Long-Lasting Results</h3><p>Treats the root cause for relief that truly lasts.</p></div>
@@ -328,7 +316,6 @@
     </form>
   </section>
 
-  <script src="js/theme.js"></script>
   <script src="js/ai-config.js"></script>
   <script src="js/chat.js"></script>
   <script src="js/script.js"></script>

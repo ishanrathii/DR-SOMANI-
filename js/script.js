@@ -52,6 +52,65 @@ document.querySelectorAll('.card[data-condition]').forEach((card) => {
   });
 });
 
+// ===== Scroll reveal (motion polish) =====
+(function () {
+  const items = document.querySelectorAll('.reveal, .reveal-stagger');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach((el) => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+    );
+    items.forEach((el) => io.observe(el));
+  }
+})();
+
+// ===== Count-up for the trust stat band =====
+(function () {
+  const nums = document.querySelectorAll('.stat strong');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!nums.length || reduce || !('IntersectionObserver' in window)) return;
+
+  function animate(el) {
+    const raw = el.textContent.trim();
+    const m = raw.match(/^(\d+)(.*)$/); // leading number + suffix (+, %, etc.)
+    if (!m) return;
+    const target = parseInt(m[1], 10);
+    const suffix = m[2] || '';
+    const dur = 1100;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          animate(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+  nums.forEach((el) => io.observe(el));
+})();
+
 // ===== Enquiry form -> WhatsApp =====
 const form = document.getElementById('enquiryForm');
 form.addEventListener('submit', (e) => {

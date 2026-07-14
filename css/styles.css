@@ -1,24 +1,32 @@
-/* ============ DESIGN TOKENS ============ */
+/* ============ DESIGN TOKENS — clean & clinical ============ */
 :root {
-  /* Brand palette — refined from the logo: deep navy · muted forest green · classic red · soft blue */
-  --green: #16203d;        /* primary = navy (text, headings) */
-  --green-dark: #111a33;
-  --green-deep: #0d152b;   /* near-black navy */
-  --cream: #f6f8fc;        /* very light grey-blue for alternating sections */
-  --gold: #d4392f;         /* the single accent = brand red (buttons/highlights) */
+  /* One signature palette: clinical white + medical blue, warmed by the brand red.
+     Navy ink for authority, a calm sky tint for panels, red reserved for action. */
+  --navy: #14213d;         /* deepest ink — main headings */
+  --green: #1f4e79;        /* clinical blue — kickers, primary UI accents (legacy var name) */
+  --green-dark: #163a5c;
+  --green-deep: #14213d;   /* near-black navy */
+  --blue: #2563a8;         /* clinical accent blue for links / trust marks */
+  --blue-soft: #eaf1f9;    /* soft blue wash for icon chips */
+  --cream: #f4f7fb;        /* very light clinical grey-blue for alternating sections */
+  --sky: #eef4fb;
+  --gold: #d4392f;         /* brand red — reserved for calls to action */
   --gold-dark: #b92f27;
-  --leaf: #3c8a33;         /* green — used only on small ticks */
-  --leaf-deep: #2c6a26;
-  --ink: #1d2540;          /* navy-ink body text */
-  --muted: #5f6885;
-  --line: #e6ebf3;
+  --leaf: #2f9e6b;         /* calm clinical green — used only on small ticks */
+  --leaf-deep: #237a52;
+  --ink: #2b3448;          /* cool slate body text */
+  --muted: #63708a;
+  --line: #e4eaf2;
   --white: #ffffff;
-  --shadow: 0 12px 32px rgba(16, 26, 64, .08);
-  --shadow-lg: 0 24px 56px rgba(16, 26, 64, .14);
-  --radius: 18px;
+  --shadow: 0 10px 30px rgba(20, 33, 61, .07);
+  --shadow-lg: 0 28px 60px rgba(20, 33, 61, .13);
+  --radius: 20px;
   --radius-sm: 12px;
-  --maxw: 1140px;
+  --maxw: 1160px;
+  /* spacing scale for consistent, generous rhythm */
+  --sp-section: 104px;
 }
+@media (max-width: 640px) { :root { --sp-section: 68px; } }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -28,7 +36,8 @@ body {
   background: #ffffff;
   line-height: 1.65;
 }
-h1, h2, h3, h4, .brand strong { font-family: 'Poppins', sans-serif; line-height: 1.2; }
+h1, h2, h3, h4, .brand strong { font-family: 'Poppins', sans-serif; line-height: 1.18; letter-spacing: -.015em; }
+h1 { letter-spacing: -.025em; }
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
@@ -47,9 +56,11 @@ img { max-width: 100%; display: block; }
 .btn--block { width: 100%; }
 
 .kicker {
-  display: inline-block; font-weight: 600; font-size: .8rem; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--green); margin-bottom: 10px;
+  display: inline-block; font-weight: 600; font-size: .78rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 12px;
+  padding-left: 30px; position: relative;
 }
+.kicker::before { content: ""; position: absolute; left: 0; top: 50%; width: 22px; height: 2px; background: var(--gold); border-radius: 2px; }
 .kicker--light { color: #d7f5c6; }
 
 /* ============ TOP BAR ============ */
@@ -83,12 +94,13 @@ img { max-width: 100%; display: block; }
 
 /* ============ HERO ============ */
 .hero { background:
-    radial-gradient(900px 480px at 92% -20%, rgba(212,57,47,.05), transparent 60%),
-    linear-gradient(180deg, #ffffff, #f6f8fc);
-  padding: 70px 0 80px; position: relative; overflow: hidden; }
-.hero::before { content: "🌸"; position: absolute; font-size: 22rem; right: -60px; bottom: -80px; opacity: .04; pointer-events: none; }
+    radial-gradient(900px 520px at 88% -20%, rgba(37,99,168,.10), transparent 62%),
+    radial-gradient(700px 420px at -8% 120%, rgba(212,57,47,.04), transparent 58%),
+    linear-gradient(180deg, #ffffff, #eef4fb);
+  padding: 84px 0 92px; position: relative; overflow: hidden; }
+.hero::before { content: "🌸"; position: absolute; font-size: 22rem; right: -60px; bottom: -80px; opacity: .035; pointer-events: none; }
 .hero__inner { display: grid; grid-template-columns: 1.3fr .9fr; gap: 50px; align-items: center; }
-.hero__eyebrow { display: inline-block; background: rgba(23,40,92,.08); color: var(--green); padding: 7px 16px; border-radius: 50px; font-weight: 600; font-size: .85rem; margin-bottom: 20px; }
+.hero__eyebrow { display: inline-block; background: var(--blue-soft); color: var(--blue); padding: 8px 18px; border-radius: 50px; font-weight: 600; font-size: .85rem; margin-bottom: 22px; border: 1px solid #dbe7f5; }
 .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); color: var(--green-deep); margin-bottom: 18px; }
 .hero h1 span { color: var(--gold-dark); }
 .hero__slogan { font-family: 'Poppins', sans-serif; font-weight: 600; font-style: italic; color: var(--gold); font-size: 1.05rem; margin-bottom: 14px; }
@@ -105,20 +117,22 @@ img { max-width: 100%; display: block; }
 .hero__points li { position: relative; padding-left: 26px; margin-bottom: 9px; color: var(--muted); font-size: .95rem; }
 .hero__points li::before { content: "✓"; position: absolute; left: 0; color: var(--leaf); font-weight: 700; }
 
-/* ============ STATS ============ */
-.stats { background: var(--cream); color: var(--ink); padding: 40px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+/* ============ STATS (trust band) ============ */
+.stats { background: linear-gradient(180deg, var(--white), var(--sky)); color: var(--ink); padding: 52px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-.stat strong { display: block; font-family: 'Poppins'; font-size: 2.4rem; color: var(--green); }
-.stat strong::after { content: ""; display: block; width: 28px; height: 3px; background: var(--gold); border-radius: 3px; margin: 8px auto 6px; }
-.stat span { font-size: .9rem; color: var(--muted); }
+.stat { position: relative; padding: 4px 8px; }
+.stat + .stat::before { content: ""; position: absolute; left: 0; top: 12%; height: 76%; width: 1px; background: var(--line); }
+.stat strong { display: block; font-family: 'Poppins'; font-size: clamp(2.2rem, 4vw, 2.9rem); color: var(--navy); font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.stat strong::after { content: ""; display: block; width: 30px; height: 3px; background: var(--gold); border-radius: 3px; margin: 12px auto 8px; }
+.stat span { font-size: .88rem; color: var(--muted); font-weight: 500; }
 
 /* ============ SECTION HEAD ============ */
-.section-head { text-align: center; max-width: 640px; margin: 0 auto 46px; }
-.section-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); color: var(--green-deep); margin-bottom: 12px; }
-.section-head p { color: var(--muted); }
+.section-head { text-align: center; max-width: 660px; margin: 0 auto 54px; }
+.section-head h2 { font-size: clamp(1.8rem, 3.6vw, 2.55rem); color: var(--green-deep); margin-bottom: 14px; }
+.section-head p { color: var(--muted); font-size: 1.02rem; }
 .section-head--light h2 { color: #fff; }
 
-section.about, section.treatments, section.testimonials, section.contact { padding: 84px 0; }
+section.about, section.treatments, section.testimonials, section.contact { padding: var(--sp-section) 0; }
 
 /* ============ ABOUT ============ */
 .about__inner { display: grid; grid-template-columns: .9fr 1.1fr; gap: 54px; align-items: center; }
@@ -153,10 +167,10 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .profile__cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
 
 /* ============ DOCTORS ============ */
-.doctors { padding: 84px 0; background: var(--cream); }
+.doctors { padding: var(--sp-section) 0; background: var(--cream); }
 .doctors__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 380px)); gap: 28px; justify-content: center; }
 .doctor { display: block; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 26px; text-align: center; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s, border-color .2s; color: inherit; }
-.doctor:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+.doctor:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #cadcef; }
 .doctor__more { display: inline-block; margin-top: 14px; color: var(--gold); font-weight: 600; font-size: .9rem; }
 .doctor:hover .doctor__more { text-decoration: underline; }
 .doctor__photo { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto 16px; border: 4px solid #fff; box-shadow: var(--shadow); }
@@ -170,9 +184,11 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .treatments { background: var(--white); }
 .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
 .card { font-family: inherit; text-align: left; cursor: pointer; width: 100%; background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 22px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s; }
-.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
-.card:focus-visible { outline: 3px solid rgba(212,57,47,.4); outline-offset: 2px; }
-.card__icon { font-size: 2.4rem; width: 64px; height: 64px; border-radius: 16px; background: rgba(212,57,47,.08); display: grid; place-items: center; margin-bottom: 16px; }
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #cadcef; }
+.card:hover .card__icon { background: #dfeaf7; }
+.card:focus-visible { outline: 3px solid rgba(37,99,168,.4); outline-offset: 2px; }
+.card__icon { font-size: 2.2rem; width: 62px; height: 62px; border-radius: 16px; background: var(--blue-soft); display: grid; place-items: center; margin-bottom: 16px; transition: background .2s, transform .2s; }
+.card:hover .card__icon { transform: scale(1.06); }
 .card h3 { font-size: 1.08rem; color: var(--green-deep); margin-bottom: 8px; }
 .card p { font-size: .9rem; color: var(--muted); }
 .card__pick { display: inline-block; margin-top: 14px; color: var(--gold); font-weight: 600; font-size: .85rem; opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s; }
@@ -185,13 +201,13 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 @keyframes field-flash { 0%,100% { box-shadow: 0 0 0 0 rgba(212,57,47,0); } 25% { box-shadow: 0 0 0 4px rgba(212,57,47,.25); } }
 
 /* ============ WHY ============ */
-.why { background: var(--cream); color: var(--ink); padding: 84px 0; }
+.why { background: var(--cream); color: var(--ink); padding: var(--sp-section) 0; }
 .why .section-head--light h2 { color: var(--green-deep); }
-.why .kicker--light { color: var(--gold); }
+.why .kicker--light { color: var(--blue); }
 .why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.why__item { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 22px; text-align: center; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s; }
-.why__item:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-.why__icon { font-size: 2.6rem; margin-bottom: 14px; }
+.why__item { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 24px; text-align: center; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s, border-color .2s; }
+.why__item:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #d3e2f2; }
+.why__icon { font-size: 2rem; width: 64px; height: 64px; border-radius: 50%; background: var(--blue-soft); display: grid; place-items: center; margin: 0 auto 16px; }
 .why__item h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--green-deep); }
 .why__item p { font-size: .9rem; color: var(--muted); }
 
@@ -286,106 +302,20 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
   .footer__inner { flex-direction: column; text-align: center; }
 }
 
-/* ============ THEME TOGGLE BUTTON ============ */
-.theme-toggle {
-  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
-  background: transparent; cursor: pointer; font-size: 1.1rem; line-height: 1;
-  display: grid; place-items: center; transition: background .2s, border-color .2s, transform .15s;
-  color: inherit; margin-left: 8px; flex: 0 0 auto;
-}
-.theme-toggle:hover { background: rgba(127,127,127,.12); transform: translateY(-1px); }
-:root[data-theme="dark"] .theme-toggle { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,77,67,.16); }
-:root[data-theme="blue"] .theme-toggle { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,77,67,.14); }
-
-/* ============ DARK THEME — red & black ============ */
-:root[data-theme="dark"] {
-  --green: #f3edef;          /* primary text / headings → near-white */
-  --green-dark: #e5dcdf;
-  --green-deep: #ffffff;     /* main headings pure white */
-  --cream: #121013;          /* alternating surface — near-black */
-  --gold: #ff4d43;           /* bright brand red — the accent */
-  --gold-dark: #e23b34;
-  --leaf: #5cb14a;
-  --leaf-deep: #47953a;
-  --ink: #ece6e9;            /* body text — soft white */
-  --muted: #a99fa4;
-  --line: #322a2e;           /* warm dark border */
-  --white: #191419;          /* card / section surface */
-  --shadow: 0 12px 32px rgba(0, 0, 0, .5);
-  --shadow-lg: 0 24px 56px rgba(0, 0, 0, .65);
-}
-:root[data-theme="dark"] body { background: #0b0a0c; }              /* black */
-
-/* red accents on labels for the red-black look */
-:root[data-theme="dark"] .kicker { color: var(--gold); }
-:root[data-theme="dark"] .stat strong { color: #fff; }
-
-/* surfaces & bars that were hard-coded light */
-:root[data-theme="dark"] .nav { background: rgba(11,10,12,.9); }
-:root[data-theme="dark"] .hero { background:
-    radial-gradient(1000px 520px at 90% -15%, rgba(255,77,67,.16), transparent 60%),
-    radial-gradient(700px 460px at -5% 115%, rgba(255,77,67,.06), transparent 55%),
-    linear-gradient(180deg, #0b0a0c, #140e10); }
-:root[data-theme="dark"] .hero__eyebrow { background: rgba(255,77,67,.12); color: var(--gold); }
-:root[data-theme="dark"] .testimonials { background: #0b0a0c; }
-:root[data-theme="dark"] .why__item { background: var(--white); }
-:root[data-theme="dark"] .subnav { background: #140e10; }
-:root[data-theme="dark"] .profile { background:
-    radial-gradient(900px 480px at 92% -20%, rgba(255,77,67,.12), transparent 60%),
-    linear-gradient(180deg, #0b0a0c, #140e10); }
-:root[data-theme="dark"] .contact__form input,
-:root[data-theme="dark"] .contact__form select,
-:root[data-theme="dark"] .contact__form textarea { background: #121013; color: var(--ink); }
-:root[data-theme="dark"] .review__stars .star-empty { color: #4a3b3d; }
-:root[data-theme="dark"] .card:hover,
-:root[data-theme="dark"] .doctor:hover { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,77,67,.25), var(--shadow-lg); }
-
-/* footer anchored blackest */
-:root[data-theme="dark"] .footer { background: #060506; }
-:root[data-theme="dark"] .card__icon { background: rgba(255,77,67,.14); }
-
-/* ============ "SYSTEM" THEME — dark blue & red ============ */
-:root[data-theme="blue"] {
-  --green: #eaf0fb;          /* text / headings → light */
-  --green-dark: #d6dff2;
-  --green-deep: #ffffff;
-  --cream: #101b2e;          /* alternating surface */
-  --gold: #ff4d43;           /* red accent */
-  --gold-dark: #e23b34;
-  --leaf: #5cb14a;
-  --leaf-deep: #47953a;
-  --ink: #dbe3f4;            /* body text */
-  --muted: #93a0bd;
-  --line: #26324b;           /* blue-grey border */
-  --white: #152238;          /* dark-blue card surface */
-  --shadow: 0 12px 32px rgba(0, 0, 0, .45);
-  --shadow-lg: 0 24px 56px rgba(0, 0, 0, .6);
-}
-:root[data-theme="blue"] body { background: #0a1122; }              /* deep navy blue */
-:root[data-theme="blue"] .kicker { color: var(--gold); }
-:root[data-theme="blue"] .stat strong { color: #fff; }
-:root[data-theme="blue"] .nav { background: rgba(10,17,34,.9); }
-:root[data-theme="blue"] .hero { background:
-    radial-gradient(1000px 520px at 90% -15%, rgba(255,77,67,.14), transparent 60%),
-    radial-gradient(720px 460px at -5% 115%, rgba(41,74,140,.30), transparent 55%),
-    linear-gradient(180deg, #0a1122, #0f1c33); }
-:root[data-theme="blue"] .hero__eyebrow { background: rgba(255,77,67,.12); color: var(--gold); }
-:root[data-theme="blue"] .testimonials { background: #0a1122; }
-:root[data-theme="blue"] .why__item { background: var(--white); }
-:root[data-theme="blue"] .subnav { background: #0f1c33; }
-:root[data-theme="blue"] .profile { background:
-    radial-gradient(900px 480px at 92% -20%, rgba(255,77,67,.10), transparent 60%),
-    linear-gradient(180deg, #0a1122, #0f1c33); }
-:root[data-theme="blue"] .contact__form input,
-:root[data-theme="blue"] .contact__form select,
-:root[data-theme="blue"] .contact__form textarea { background: #0e1a2e; color: var(--ink); }
-:root[data-theme="blue"] .review__stars .star-empty { color: #37456b; }
-:root[data-theme="blue"] .card:hover,
-:root[data-theme="blue"] .doctor:hover { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,77,67,.25), var(--shadow-lg); }
-:root[data-theme="blue"] .footer { background: #070d1a; }
-:root[data-theme="blue"] .card__icon { background: rgba(255,77,67,.14); }
-:root[data-theme="blue"] .theme-switch button[aria-pressed="true"] {
-  background: #17253c; color: #fff; box-shadow: 0 0 0 1px rgba(255,77,67,.45);
+/* ============ SCROLL REVEAL (motion polish) ============ */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-stagger > * { opacity: 0; transform: translateY(22px); transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); }
+.reveal-stagger.in > * { opacity: 1; transform: none; }
+.reveal-stagger.in > *:nth-child(2) { transition-delay: .07s; }
+.reveal-stagger.in > *:nth-child(3) { transition-delay: .14s; }
+.reveal-stagger.in > *:nth-child(4) { transition-delay: .21s; }
+.reveal-stagger.in > *:nth-child(5) { transition-delay: .28s; }
+.reveal-stagger.in > *:nth-child(6) { transition-delay: .35s; }
+.reveal-stagger.in > *:nth-child(7) { transition-delay: .42s; }
+.reveal-stagger.in > *:nth-child(8) { transition-delay: .49s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
 
 /* ============ AI CHAT WIDGET ============ */
@@ -400,7 +330,6 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .ai-launcher:hover { transform: translateY(-2px); }
 .ai-launcher__dot { width: 30px; height: 30px; border-radius: 50%; background: var(--gold); display: grid; place-items: center; font-size: 1rem; }
 .ai-launcher.hidden { display: none; }
-:root[data-theme="dark"] .ai-launcher, :root[data-theme="blue"] .ai-launcher { background: var(--gold); }
 
 .ai-panel {
   position: fixed; left: 18px; bottom: 18px; z-index: 230;
