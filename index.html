@@ -36,6 +36,7 @@
         <a href="#about">About</a>
         <a href="#treatments">Treatments</a>
         <a href="#doctors">Doctors</a>
+        <a href="#online">Online</a>
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn--cta nav__cta">Book Appointment</a>
       </nav>
@@ -186,6 +187,82 @@
           <p class="doctor__desc">Committed to gentle, patient-first homoeopathic care for the whole family.</p>
           <span class="doctor__more">View full profile →</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ONLINE CONSULTATION ============ -->
+  <section class="online" id="online">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Consult From Anywhere</span>
+        <h2>Online Homoeopathic Consultation</h2>
+        <p>The same trusted care from the comfort of your home — anywhere in India. Simple, private and convenient.</p>
+      </div>
+
+      <div class="online__steps reveal-stagger">
+        <div class="ostep"><span class="ostep__no">1</span><div class="ostep__ic">🗓️</div><h3>Book your slot</h3><p>Request a time on WhatsApp — pick a day and part of the day that suits you.</p></div>
+        <div class="ostep"><span class="ostep__no">2</span><div class="ostep__ic">💳</div><h3>Confirm &amp; pay</h3><p>Confirm your appointment and pay the consultation fee securely via UPI.</p></div>
+        <div class="ostep"><span class="ostep__no">3</span><div class="ostep__ic">🎥</div><h3>Video consultation</h3><p>Meet the doctor over a video call and discuss your case in detail.</p></div>
+        <div class="ostep"><span class="ostep__no">4</span><div class="ostep__ic">💊</div><h3>Medicines &amp; follow-up</h3><p>Get your prescription and guidance on WhatsApp, with follow-up support.</p></div>
+      </div>
+
+      <div class="online__cols">
+        <div class="obook reveal">
+          <h3>Request an online consultation</h3>
+          <label>Your name<input type="text" id="obName" placeholder="Full name" /></label>
+          <label>City<input type="text" id="obCity" placeholder="Your city" /></label>
+          <label>Concern
+            <select id="obConcern">
+              <option value="">Select a treatment</option>
+              <option>Skin Diseases &amp; Vitiligo</option>
+              <option>Allergies</option>
+              <option>Migraine</option>
+              <option>PCOD</option>
+              <option>Kidney Stones</option>
+              <option>Acidity &amp; Digestion</option>
+              <option>Paediatric Illnesses</option>
+              <option>Mental Health Care</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <div class="obook__row">
+            <div>
+              <span class="obook__lbl">Preferred day</span>
+              <div class="chips" id="obDay">
+                <button type="button" data-v="Today">Today</button>
+                <button type="button" data-v="Tomorrow">Tomorrow</button>
+                <button type="button" data-v="This week">This week</button>
+              </div>
+            </div>
+            <div>
+              <span class="obook__lbl">Preferred time</span>
+              <div class="chips" id="obTime">
+                <button type="button" data-v="Morning">Morning</button>
+                <button type="button" data-v="Afternoon">Afternoon</button>
+                <button type="button" data-v="Evening">Evening</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--cta btn--block" id="obSend">Request slot on WhatsApp</button>
+          <p class="contact__note">Opens a pre-filled WhatsApp message to the clinic.</p>
+        </div>
+
+        <div class="oprep reveal">
+          <h3>What to keep ready</h3>
+          <ul class="oprep__list">
+            <li>Recent reports (blood tests, scans) — clear photos are fine</li>
+            <li>Your current medicines / prescriptions</li>
+            <li>A short note of your symptoms and how long you've had them</li>
+            <li>A quiet space and a stable internet connection</li>
+          </ul>
+          <div class="oprep__actions">
+            <a class="btn btn--whatsapp" id="oVideo" href="https://wa.me/919834172124">🎥 Start video call</a>
+            <a class="btn btn--cta" id="oPay" href="#">💳 Pay fee via UPI</a>
+          </div>
+          <p class="oprep__hint">🕒 <span id="oTimings">Flexible slots — request your preferred time</span></p>
+          <p class="oprep__hint">🔒 Your details stay private and go only to the clinic.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -341,6 +418,7 @@
   </section>
 
   <script src="js/ai-config.js"></script>
+  <script src="js/online-config.js"></script>
   <script src="js/chat.js"></script>
   <script src="js/script.js"></script>
 </body>

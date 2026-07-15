@@ -204,6 +204,33 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .field-flash { animation: field-flash 1.4s ease; }
 @keyframes field-flash { 0%,100% { box-shadow: 0 0 0 0 rgba(212,57,47,0); } 25% { box-shadow: 0 0 0 4px rgba(212,57,47,.25); } }
 
+/* ============ ONLINE CONSULTATION ============ */
+.online { padding: var(--sp-section) 0; background: var(--white); }
+.online__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-bottom: 42px; }
+.ostep { position: relative; background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 22px 24px; text-align: center; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.ostep:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: #cadcef; }
+.ostep__no { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: #fff; font-family: 'Poppins'; font-weight: 700; font-size: .9rem; display: grid; place-items: center; box-shadow: var(--shadow); }
+.ostep__ic { font-size: 1.9rem; width: 62px; height: 62px; border-radius: 50%; background: var(--blue-soft); display: grid; place-items: center; margin: 6px auto 14px; }
+.ostep h3 { font-size: 1.05rem; color: var(--green-deep); margin-bottom: 6px; }
+.ostep p { font-size: .88rem; color: var(--muted); }
+.online__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.obook, .oprep { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; box-shadow: var(--shadow); }
+.obook h3, .oprep h3 { color: var(--green-deep); margin-bottom: 18px; font-size: 1.2rem; }
+.obook label { display: block; font-size: .85rem; font-weight: 600; color: var(--ink); margin-bottom: 14px; }
+.obook input, .obook select { width: 100%; margin-top: 6px; padding: 11px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: .95rem; background: var(--cream); color: var(--ink); }
+.obook input:focus, .obook select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,168,.15); }
+.obook__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 4px 0 20px; }
+.obook__lbl { display: block; font-size: .85rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { font-family: 'Inter', sans-serif; font-size: .84rem; font-weight: 600; color: var(--muted); background: var(--cream); border: 1px solid var(--line); border-radius: 50px; padding: 8px 14px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.chips button:hover { border-color: #cadcef; }
+.chips button.on { background: var(--blue-soft); color: var(--blue); border-color: #cadcef; }
+.oprep__list { list-style: none; margin-bottom: 22px; }
+.oprep__list li { position: relative; padding-left: 28px; margin-bottom: 12px; color: var(--ink); font-size: .92rem; }
+.oprep__list li::before { content: "✓"; position: absolute; left: 0; color: var(--leaf); font-weight: 700; }
+.oprep__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.oprep__hint { font-size: .88rem; color: var(--muted); margin-top: 6px; }
+
 /* ============ WHY ============ */
 .why { background: var(--cream); color: var(--ink); padding: var(--sp-section) 0; }
 .why .section-head--light h2 { color: var(--green-deep); }
@@ -282,6 +309,8 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 @media (max-width: 920px) {
   .hero__inner, .about__inner, .contact__inner { grid-template-columns: 1fr; }
   .cards, .why__grid { grid-template-columns: repeat(2, 1fr); }
+  .online__steps { grid-template-columns: repeat(2, 1fr); }
+  .online__cols { grid-template-columns: 1fr; }
   .quotes { grid-template-columns: 1fr; }
   .doctors__grid { grid-template-columns: 1fr; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
@@ -302,6 +331,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 }
 @media (max-width: 540px) {
   .cards, .why__grid { grid-template-columns: 1fr; }
+  .online__steps, .obook__row { grid-template-columns: 1fr; }
   .topbar__contact { gap: 12px; }
   .footer__inner { flex-direction: column; text-align: center; }
 }

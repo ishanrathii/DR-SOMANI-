@@ -222,6 +222,33 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .field-flash { animation: field-flash 1.4s ease; }
 @keyframes field-flash { 0%,100% { box-shadow: 0 0 0 0 rgba(212,57,47,0); } 25% { box-shadow: 0 0 0 4px rgba(212,57,47,.25); } }
 
+/* ============ ONLINE CONSULTATION ============ */
+.online { padding: var(--sp-section) 0; background: var(--white); }
+.online__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-bottom: 42px; }
+.ostep { position: relative; background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 22px 24px; text-align: center; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.ostep:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: #cadcef; }
+.ostep__no { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: #fff; font-family: 'Poppins'; font-weight: 700; font-size: .9rem; display: grid; place-items: center; box-shadow: var(--shadow); }
+.ostep__ic { font-size: 1.9rem; width: 62px; height: 62px; border-radius: 50%; background: var(--blue-soft); display: grid; place-items: center; margin: 6px auto 14px; }
+.ostep h3 { font-size: 1.05rem; color: var(--green-deep); margin-bottom: 6px; }
+.ostep p { font-size: .88rem; color: var(--muted); }
+.online__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.obook, .oprep { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; box-shadow: var(--shadow); }
+.obook h3, .oprep h3 { color: var(--green-deep); margin-bottom: 18px; font-size: 1.2rem; }
+.obook label { display: block; font-size: .85rem; font-weight: 600; color: var(--ink); margin-bottom: 14px; }
+.obook input, .obook select { width: 100%; margin-top: 6px; padding: 11px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: .95rem; background: var(--cream); color: var(--ink); }
+.obook input:focus, .obook select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,168,.15); }
+.obook__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 4px 0 20px; }
+.obook__lbl { display: block; font-size: .85rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { font-family: 'Inter', sans-serif; font-size: .84rem; font-weight: 600; color: var(--muted); background: var(--cream); border: 1px solid var(--line); border-radius: 50px; padding: 8px 14px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.chips button:hover { border-color: #cadcef; }
+.chips button.on { background: var(--blue-soft); color: var(--blue); border-color: #cadcef; }
+.oprep__list { list-style: none; margin-bottom: 22px; }
+.oprep__list li { position: relative; padding-left: 28px; margin-bottom: 12px; color: var(--ink); font-size: .92rem; }
+.oprep__list li::before { content: "✓"; position: absolute; left: 0; color: var(--leaf); font-weight: 700; }
+.oprep__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.oprep__hint { font-size: .88rem; color: var(--muted); margin-top: 6px; }
+
 /* ============ WHY ============ */
 .why { background: var(--cream); color: var(--ink); padding: var(--sp-section) 0; }
 .why .section-head--light h2 { color: var(--green-deep); }
@@ -300,6 +327,8 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 @media (max-width: 920px) {
   .hero__inner, .about__inner, .contact__inner { grid-template-columns: 1fr; }
   .cards, .why__grid { grid-template-columns: repeat(2, 1fr); }
+  .online__steps { grid-template-columns: repeat(2, 1fr); }
+  .online__cols { grid-template-columns: 1fr; }
   .quotes { grid-template-columns: 1fr; }
   .doctors__grid { grid-template-columns: 1fr; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
@@ -320,6 +349,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 }
 @media (max-width: 540px) {
   .cards, .why__grid { grid-template-columns: 1fr; }
+  .online__steps, .obook__row { grid-template-columns: 1fr; }
   .topbar__contact { gap: 12px; }
   .footer__inner { flex-direction: column; text-align: center; }
 }
@@ -432,6 +462,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
         <a href="#about">About</a>
         <a href="#treatments">Treatments</a>
         <a href="#doctors">Doctors</a>
+        <a href="#online">Online</a>
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn--cta nav__cta">Book Appointment</a>
       </nav>
@@ -582,6 +613,82 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
           <p class="doctor__desc">Committed to gentle, patient-first homoeopathic care for the whole family.</p>
           <span class="doctor__more">View full profile →</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ONLINE CONSULTATION ============ -->
+  <section class="online" id="online">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Consult From Anywhere</span>
+        <h2>Online Homoeopathic Consultation</h2>
+        <p>The same trusted care from the comfort of your home — anywhere in India. Simple, private and convenient.</p>
+      </div>
+
+      <div class="online__steps reveal-stagger">
+        <div class="ostep"><span class="ostep__no">1</span><div class="ostep__ic">🗓️</div><h3>Book your slot</h3><p>Request a time on WhatsApp — pick a day and part of the day that suits you.</p></div>
+        <div class="ostep"><span class="ostep__no">2</span><div class="ostep__ic">💳</div><h3>Confirm &amp; pay</h3><p>Confirm your appointment and pay the consultation fee securely via UPI.</p></div>
+        <div class="ostep"><span class="ostep__no">3</span><div class="ostep__ic">🎥</div><h3>Video consultation</h3><p>Meet the doctor over a video call and discuss your case in detail.</p></div>
+        <div class="ostep"><span class="ostep__no">4</span><div class="ostep__ic">💊</div><h3>Medicines &amp; follow-up</h3><p>Get your prescription and guidance on WhatsApp, with follow-up support.</p></div>
+      </div>
+
+      <div class="online__cols">
+        <div class="obook reveal">
+          <h3>Request an online consultation</h3>
+          <label>Your name<input type="text" id="obName" placeholder="Full name" /></label>
+          <label>City<input type="text" id="obCity" placeholder="Your city" /></label>
+          <label>Concern
+            <select id="obConcern">
+              <option value="">Select a treatment</option>
+              <option>Skin Diseases &amp; Vitiligo</option>
+              <option>Allergies</option>
+              <option>Migraine</option>
+              <option>PCOD</option>
+              <option>Kidney Stones</option>
+              <option>Acidity &amp; Digestion</option>
+              <option>Paediatric Illnesses</option>
+              <option>Mental Health Care</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <div class="obook__row">
+            <div>
+              <span class="obook__lbl">Preferred day</span>
+              <div class="chips" id="obDay">
+                <button type="button" data-v="Today">Today</button>
+                <button type="button" data-v="Tomorrow">Tomorrow</button>
+                <button type="button" data-v="This week">This week</button>
+              </div>
+            </div>
+            <div>
+              <span class="obook__lbl">Preferred time</span>
+              <div class="chips" id="obTime">
+                <button type="button" data-v="Morning">Morning</button>
+                <button type="button" data-v="Afternoon">Afternoon</button>
+                <button type="button" data-v="Evening">Evening</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--cta btn--block" id="obSend">Request slot on WhatsApp</button>
+          <p class="contact__note">Opens a pre-filled WhatsApp message to the clinic.</p>
+        </div>
+
+        <div class="oprep reveal">
+          <h3>What to keep ready</h3>
+          <ul class="oprep__list">
+            <li>Recent reports (blood tests, scans) — clear photos are fine</li>
+            <li>Your current medicines / prescriptions</li>
+            <li>A short note of your symptoms and how long you've had them</li>
+            <li>A quiet space and a stable internet connection</li>
+          </ul>
+          <div class="oprep__actions">
+            <a class="btn btn--whatsapp" id="oVideo" href="https://wa.me/919834172124">🎥 Start video call</a>
+            <a class="btn btn--cta" id="oPay" href="#">💳 Pay fee via UPI</a>
+          </div>
+          <p class="oprep__hint">🕒 <span id="oTimings">Flexible slots — request your preferred time</span></p>
+          <p class="oprep__hint">🔒 Your details stay private and go only to the clinic.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -750,6 +857,33 @@ window.SOMANI_AI = {
   endpoint: "",              // <-- paste your Cloudflare Worker URL here
   whatsapp: "919834172124",  // clinic WhatsApp number (no +, no spaces)
   assistantName: "Sanjeevani",
+};
+
+</script>
+  <script>
+// ============================================================
+// Online consultation settings — edit the values, commit, push.
+// Leave any value as "" to keep that feature hidden / fall back to WhatsApp.
+// ============================================================
+window.SOMANI_ONLINE = {
+  whatsapp: "919834172124",
+
+  // A video-call room link the patient can join. e.g. a Google Meet link
+  // "https://meet.google.com/abc-defg-hij" or a Zoom personal room.
+  // Empty "" => the "Start video call" button opens WhatsApp instead.
+  videoLink: "",
+
+  // Your UPI ID enables the "Pay fee via UPI" button (opens the patient's UPI
+  // app on mobile). e.g. "kushalsomani@okhdfcbank". Empty "" => button hidden.
+  upiId: "",
+  upiName: "Dr Somani's Homoeopathy",
+
+  // Optional consultation fee in INR, e.g. "500". Shown on the pay button.
+  fee: "",
+
+  // Optional consultation timings, e.g. "Mon–Sat, 10am–7pm".
+  // Empty "" => a neutral "request your preferred slot" message is shown.
+  timings: "",
 };
 
 </script>
@@ -1365,6 +1499,84 @@ document.querySelectorAll('.card[data-condition]').forEach((card) => {
     { threshold: 0.6 }
   );
   nums.forEach((el) => io.observe(el));
+})();
+
+// ===== Online consultation =====
+(function () {
+  const cfg = window.SOMANI_ONLINE || {};
+  const WA = cfg.whatsapp || "919834172124";
+
+  // single-select chip groups
+  function chipGroup(id) {
+    const box = document.getElementById(id);
+    if (!box) return () => "";
+    box.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      box.querySelectorAll("button").forEach((x) => x.classList.remove("on"));
+      b.classList.add("on");
+    });
+    return () => {
+      const s = box.querySelector("button.on");
+      return s ? s.getAttribute("data-v") : "";
+    };
+  }
+  const getDay = chipGroup("obDay");
+  const getTime = chipGroup("obTime");
+
+  const send = document.getElementById("obSend");
+  if (send) {
+    send.addEventListener("click", () => {
+      const val = (id) => (document.getElementById(id).value || "").trim();
+      const name = val("obName");
+      if (!name) {
+        alert("Please enter your name so the clinic can reach you.");
+        document.getElementById("obName").focus();
+        return;
+      }
+      const city = val("obCity");
+      const concern = document.getElementById("obConcern").value || "";
+      const day = getDay();
+      const time = getTime();
+      let t = `Hi Dr Somani, I'd like to book an ONLINE consultation.\n\nName: ${name}`;
+      if (city) t += `\nCity: ${city}`;
+      if (concern) t += `\nConcern: ${concern}`;
+      if (day) t += `\nPreferred day: ${day}`;
+      if (time) t += `\nPreferred time: ${time}`;
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`, "_blank");
+    });
+  }
+
+  // "Start video call" — join a configured room, else request on WhatsApp
+  const video = document.getElementById("oVideo");
+  if (video) {
+    video.target = "_blank";
+    video.rel = "noopener";
+    video.href = cfg.videoLink
+      ? cfg.videoLink
+      : `https://wa.me/${WA}?text=${encodeURIComponent(
+          "Hi Dr Somani, I'm ready for my online video consultation."
+        )}`;
+  }
+
+  // "Pay fee via UPI" — enabled only when a UPI ID is configured
+  const pay = document.getElementById("oPay");
+  if (pay) {
+    if (cfg.upiId) {
+      let params = `pa=${encodeURIComponent(cfg.upiId)}&pn=${encodeURIComponent(
+        cfg.upiName || "Dr Somani's Homoeopathy"
+      )}&cu=INR`;
+      if (cfg.fee) params += `&am=${encodeURIComponent(cfg.fee)}`;
+      pay.href = `upi://pay?${params}`;
+      if (cfg.fee) pay.textContent = `💳 Pay ₹${cfg.fee} via UPI`;
+    } else {
+      pay.remove();
+    }
+  }
+
+  // Timings
+  const tim = document.getElementById("oTimings");
+  if (tim && cfg.timings) tim.textContent = cfg.timings;
 })();
 
 // ===== Enquiry form -> WhatsApp =====

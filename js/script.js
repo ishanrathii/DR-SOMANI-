@@ -111,6 +111,84 @@ document.querySelectorAll('.card[data-condition]').forEach((card) => {
   nums.forEach((el) => io.observe(el));
 })();
 
+// ===== Online consultation =====
+(function () {
+  const cfg = window.SOMANI_ONLINE || {};
+  const WA = cfg.whatsapp || "919834172124";
+
+  // single-select chip groups
+  function chipGroup(id) {
+    const box = document.getElementById(id);
+    if (!box) return () => "";
+    box.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      box.querySelectorAll("button").forEach((x) => x.classList.remove("on"));
+      b.classList.add("on");
+    });
+    return () => {
+      const s = box.querySelector("button.on");
+      return s ? s.getAttribute("data-v") : "";
+    };
+  }
+  const getDay = chipGroup("obDay");
+  const getTime = chipGroup("obTime");
+
+  const send = document.getElementById("obSend");
+  if (send) {
+    send.addEventListener("click", () => {
+      const val = (id) => (document.getElementById(id).value || "").trim();
+      const name = val("obName");
+      if (!name) {
+        alert("Please enter your name so the clinic can reach you.");
+        document.getElementById("obName").focus();
+        return;
+      }
+      const city = val("obCity");
+      const concern = document.getElementById("obConcern").value || "";
+      const day = getDay();
+      const time = getTime();
+      let t = `Hi Dr Somani, I'd like to book an ONLINE consultation.\n\nName: ${name}`;
+      if (city) t += `\nCity: ${city}`;
+      if (concern) t += `\nConcern: ${concern}`;
+      if (day) t += `\nPreferred day: ${day}`;
+      if (time) t += `\nPreferred time: ${time}`;
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`, "_blank");
+    });
+  }
+
+  // "Start video call" — join a configured room, else request on WhatsApp
+  const video = document.getElementById("oVideo");
+  if (video) {
+    video.target = "_blank";
+    video.rel = "noopener";
+    video.href = cfg.videoLink
+      ? cfg.videoLink
+      : `https://wa.me/${WA}?text=${encodeURIComponent(
+          "Hi Dr Somani, I'm ready for my online video consultation."
+        )}`;
+  }
+
+  // "Pay fee via UPI" — enabled only when a UPI ID is configured
+  const pay = document.getElementById("oPay");
+  if (pay) {
+    if (cfg.upiId) {
+      let params = `pa=${encodeURIComponent(cfg.upiId)}&pn=${encodeURIComponent(
+        cfg.upiName || "Dr Somani's Homoeopathy"
+      )}&cu=INR`;
+      if (cfg.fee) params += `&am=${encodeURIComponent(cfg.fee)}`;
+      pay.href = `upi://pay?${params}`;
+      if (cfg.fee) pay.textContent = `💳 Pay ₹${cfg.fee} via UPI`;
+    } else {
+      pay.remove();
+    }
+  }
+
+  // Timings
+  const tim = document.getElementById("oTimings");
+  if (tim && cfg.timings) tim.textContent = cfg.timings;
+})();
+
 // ===== Enquiry form -> WhatsApp =====
 const form = document.getElementById('enquiryForm');
 form.addEventListener('submit', (e) => {
