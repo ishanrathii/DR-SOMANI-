@@ -222,6 +222,14 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .field-flash { animation: field-flash 1.4s ease; }
 @keyframes field-flash { 0%,100% { box-shadow: 0 0 0 0 rgba(212,57,47,0); } 25% { box-shadow: 0 0 0 4px rgba(212,57,47,.25); } }
 
+/* ============ SKIN & VITILIGO GALLERY ============ */
+.skingal { padding: 8px 0 var(--sp-section); background: var(--white); }
+.skingal.hidden { display: none; }
+.skingal__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.skingal__item { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--cream); aspect-ratio: 4 / 3; }
+.skingal__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.skingal__item:hover img { transform: scale(1.05); }
+
 /* ============ ONLINE CONSULTATION ============ */
 .online { padding: var(--sp-section) 0; background: var(--white); }
 .online__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-bottom: 42px; }
@@ -329,6 +337,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
   .cards, .why__grid { grid-template-columns: repeat(2, 1fr); }
   .online__steps { grid-template-columns: repeat(2, 1fr); }
   .online__cols { grid-template-columns: 1fr; }
+  .skingal__grid { grid-template-columns: repeat(2, 1fr); }
   .quotes { grid-template-columns: 1fr; }
   .doctors__grid { grid-template-columns: 1fr; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
@@ -585,6 +594,23 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
         </button>
       </div>
       <p class="cards__hint">Can't find your concern? <a href="#contact">Send us a message</a> and we'll guide you.</p>
+    </div>
+  </section>
+
+  <!-- ============ SKIN & VITILIGO GALLERY (auto-shows once photos are uploaded) ============ -->
+  <section class="skingal hidden" id="skinGallery">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Skin &amp; Vitiligo</span>
+        <h2>Skin &amp; Vitiligo Care</h2>
+        <p>Conditions we help manage every day — from vitiligo and psoriasis to eczema and stubborn rashes.</p>
+      </div>
+      <div class="skingal__grid">
+        <figure class="skingal__item"><img src="assets/conditions/skin.jpg" alt="Skin &amp; vitiligo care at Dr Somani's Homoeopathy" loading="lazy" onerror="this.closest('.skingal__item').remove()" /></figure>
+        <figure class="skingal__item"><img src="assets/conditions/skin-2.jpg" alt="Skin &amp; vitiligo care at Dr Somani's Homoeopathy" loading="lazy" onerror="this.closest('.skingal__item').remove()" /></figure>
+        <figure class="skingal__item"><img src="assets/conditions/skin-3.jpg" alt="Skin &amp; vitiligo care at Dr Somani's Homoeopathy" loading="lazy" onerror="this.closest('.skingal__item').remove()" /></figure>
+        <figure class="skingal__item"><img src="assets/conditions/skin-4.jpg" alt="Skin &amp; vitiligo care at Dr Somani's Homoeopathy" loading="lazy" onerror="this.closest('.skingal__item').remove()" /></figure>
+      </div>
     </div>
   </section>
 
@@ -1499,6 +1525,22 @@ document.querySelectorAll('.card[data-condition]').forEach((card) => {
     { threshold: 0.6 }
   );
   nums.forEach((el) => io.observe(el));
+})();
+
+// ===== Skin & Vitiligo gallery: only show once a real photo loads =====
+(function () {
+  const sec = document.getElementById("skinGallery");
+  if (!sec) return;
+  let shown = false;
+  const reveal = () => {
+    if (shown) return;
+    shown = true;
+    sec.classList.remove("hidden");
+  };
+  sec.querySelectorAll("img").forEach((img) => {
+    if (img.complete && img.naturalWidth > 0) reveal();
+    img.addEventListener("load", reveal);
+  });
 })();
 
 // ===== Online consultation =====

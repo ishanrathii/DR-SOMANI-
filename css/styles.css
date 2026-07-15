@@ -204,6 +204,14 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .field-flash { animation: field-flash 1.4s ease; }
 @keyframes field-flash { 0%,100% { box-shadow: 0 0 0 0 rgba(212,57,47,0); } 25% { box-shadow: 0 0 0 4px rgba(212,57,47,.25); } }
 
+/* ============ SKIN & VITILIGO GALLERY ============ */
+.skingal { padding: 8px 0 var(--sp-section); background: var(--white); }
+.skingal.hidden { display: none; }
+.skingal__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.skingal__item { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--cream); aspect-ratio: 4 / 3; }
+.skingal__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.skingal__item:hover img { transform: scale(1.05); }
+
 /* ============ ONLINE CONSULTATION ============ */
 .online { padding: var(--sp-section) 0; background: var(--white); }
 .online__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-bottom: 42px; }
@@ -311,6 +319,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
   .cards, .why__grid { grid-template-columns: repeat(2, 1fr); }
   .online__steps { grid-template-columns: repeat(2, 1fr); }
   .online__cols { grid-template-columns: 1fr; }
+  .skingal__grid { grid-template-columns: repeat(2, 1fr); }
   .quotes { grid-template-columns: 1fr; }
   .doctors__grid { grid-template-columns: 1fr; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
