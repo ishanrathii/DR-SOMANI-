@@ -790,7 +790,14 @@ window.SOMANI_AI = {
   let queue = [];
   let qi = -1;
 
-  const LANG_LABEL = { en: "English", hi: "Hindi", he: "Hinglish" };
+  const LANG_LABEL = { en: "English", hi: "Hindi", he: "Hinglish", mr: "Marathi" };
+  const BRANCHES = {
+    en: [["Pune (Wakad)", "Pune (Wakad)"], ["Jalgaon", "Jalgaon"], ["Online", "Online consultation"]],
+    hi: [["पुणे (वाकड)", "पुणे (वाकड)"], ["जलगांव", "जलगांव"], ["ऑनलाइन", "ऑनलाइन परामर्श"]],
+    he: [["Pune (Wakad)", "Pune (Wakad)"], ["Jalgaon", "Jalgaon"], ["Online", "Online consultation"]],
+    mr: [["पुणे (वाकड)", "पुणे (वाकड)"], ["जळगाव", "जळगाव"], ["ऑनलाइन", "ऑनलाइन सल्ला"]],
+  };
+  let botBusy = false;
 
   // Localised strings for the guided intake
   const T = {
@@ -866,6 +873,30 @@ window.SOMANI_AI = {
       emergency: "⚠️ Aapne jo bataya usme turant medical help ki zaroorat ho sakti hai. Kripya der na karein — turant nazdeeki hospital jayein ya emergency number par call karein. Emergency me homoeopathy ka wait na karein.",
       handoffBtn: "📤 Meri details clinic ko bhejein",
     },
+    mr: {
+      greet: () => `नमस्कार 🙏 मी ${NAME}, डॉ. सोमानी होमिओपॅथीची सहाय्यक. मी काही छोटे प्रश्न विचारेन आणि तुमची माहिती डॉक्टरांपर्यंत पोहोचवेन.`,
+      note: "ही फक्त शैक्षणिक माहिती आहे — निदान किंवा औषध नाही. डॉ. सोमानी तुमची केस पाहून उपचार ठरवतील. आणीबाणीच्या वेळी लगेच जवळच्या रुग्णालयात जा किंवा आपत्कालीन नंबरवर कॉल करा. हवं असल्यास 📎 वापरून रिपोर्टचा फोटो पाठवू शकता.",
+      steps: {
+        name: () => "सुरुवात करण्यासाठी तुमचं नाव सांगाल का? 🙏",
+        agesex: (d) => `धन्यवाद${d.name ? ", " + d.name : ""}. कृपया तुमचं वय आणि लिंग सांगा (उदा. 34, महिला).`,
+        concern: () => "तुमची मुख्य आरोग्य समस्या काय आहे — आणि ती किती दिवसांपासून आहे?",
+        history: () => "डॉक्टरांसाठी आणखी काही उपयुक्त? जसं — सध्या चालू असलेली औषधं, कशाने आराम किंवा त्रास वाढतो, किंवा कौटुंबिक इतिहास.",
+        branch: () => "शेवटी, तुमच्यासाठी काय सोयीचं राहील — पुणे (वाकड), जळगाव, की ऑनलाइन सल्ला?",
+      },
+      followups: {
+        skin: "त्वचेतील बदल किती दिवसांपासून आहेत, आणि ते पसरत आहेत का किंवा खाज येते का?",
+        kidney: "दुखणं झालं आहे का, किंवा खड्यांचा सोनोग्राफी/रिपोर्ट आहे का? माहित असल्यास आकार किती?",
+        pcod: "तुमची मासिक पाळी नियमित आहे का, आणि ही समस्या किती दिवसांपासून आहे?",
+        migraine: "डोकेदुखी किती वेळा होते, आणि प्रकाश किंवा आवाजाने वाढते का?",
+        acidity: "अ‍ॅसिडिटी काही खाल्ल्यानंतर किंवा ठराविक वेळी जास्त होते का?",
+        allergy: "कशाने त्रास वाढतो — धूळ, हवामान, अन्न, की आणखी काही?",
+        child: "मुलाचं वय किती आहे, आणि हे किती वेळा होतं?",
+        mental: "तुम्ही किती दिवसांपासून असं अनुभवत आहात, आणि याचा झोप किंवा दैनंदिन जीवनावर परिणाम होतो का?",
+      },
+      thanks: "धन्यवाद — मी सर्व नोंदवलं आहे. खालील बटण दाबा, मी तुमची माहिती क्लिनिकला WhatsApp वर पाठवेन. डॉक्टर ती पाहून तुमच्याशी संपर्क करतील. 🌸",
+      emergency: "⚠️ तुम्ही सांगितलेल्या गोष्टीसाठी तातडीने वैद्यकीय मदतीची गरज असू शकते. कृपया उशीर करू नका — लगेच जवळच्या रुग्णालयात जा किंवा आपत्कालीन नंबरवर कॉल करा. आणीबाणीत होमिओपॅथीची वाट पाहू नका.",
+      handoffBtn: "📤 माझी माहिती क्लिनिकला पाठवा",
+    },
   };
 
   function detectCondition(t) {
@@ -933,9 +964,9 @@ window.SOMANI_AI = {
     if (GUIDED) {
       // Neutral bilingual greeting, then let the patient pick a language
       bubble("bot", `Namaste 🙏 I'm ${NAME}, the assistant for Dr Somani's Homoeopathy.`);
-      bubble("bot", "Please choose your language · कृपया अपनी भाषा चुनें:");
+      bubble("bot", "Please choose your language · भाषा निवडा · अपनी भाषा चुनें:");
       quickReplies(
-        [["English", "en"], ["हिंदी", "hi"], ["Hinglish", "he"]],
+        [["English", "en"], ["हिंदी", "hi"], ["मराठी", "mr"], ["Hinglish", "he"]],
         (val) => chooseLang(val)
       );
       return;
@@ -977,20 +1008,37 @@ window.SOMANI_AI = {
     qi = -1;
     askNext();
   }
+  // Show a brief "typing…" pause, then the bot message — feels like a real chat
+  function botSay(text, after) {
+    botBusy = true;
+    const t = typing();
+    setTimeout(() => {
+      t.remove();
+      bubble("bot", text);
+      botBusy = false;
+      if (after) after();
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 480);
+  }
   function askNext() {
     qi++;
     if (qi >= queue.length) {
-      bubble("bot", T[lang].thanks);
-      handoff.textContent = T[lang].handoffBtn;
-      handoff.classList.remove("hidden");
+      botSay(T[lang].thanks, () => {
+        handoff.textContent = T[lang].handoffBtn;
+        handoff.classList.remove("hidden");
+      });
       return;
     }
     const key = queue[qi];
-    if (key === "followup") {
-      bubble("bot", T[lang].followups[intake._cond]);
-    } else {
-      bubble("bot", T[lang].steps[key](intake));
-    }
+    const text = key === "followup" ? T[lang].followups[intake._cond] : T[lang].steps[key](intake);
+    botSay(text, () => {
+      if (key === "branch") {
+        quickReplies(BRANCHES[lang] || BRANCHES.en, (val) => {
+          intake.branch = val;
+          askNext();
+        });
+      }
+    });
   }
   function guidedSummary() {
     const date = new Date().toLocaleDateString("en-GB", {
@@ -1107,7 +1155,7 @@ window.SOMANI_AI = {
   form &&
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (busy) return;
+      if (busy || botBusy) return;
       const text = (input.value || "").trim();
       if (!text && !pending) return;
       input.value = "";
@@ -1126,6 +1174,9 @@ window.SOMANI_AI = {
           input.focus();
           return;
         }
+
+        // Patient typed instead of tapping a chip — clear any stale chips
+        msgs.querySelectorAll(".ai-quick").forEach((n) => n.remove());
 
         // Emergency safety check on anything they tell us
         if (text && isEmergency(text)) bubble("note", T[lang].emergency);

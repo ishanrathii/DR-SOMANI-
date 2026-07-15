@@ -14,11 +14,13 @@ The website is static (GitHub Pages), so it **cannot** safely hold an API key.
 The Worker is a tiny backend that keeps the key secret and talks to Claude.
 
 Until you complete the 5-minute deploy below, the assistant runs in **guided
-mode**: it still chats on the site — asking the patient a short set of questions
-(name, age/gender, concern, details, preferred branch) — and then sends a tidy
-summary to the clinic on WhatsApp. Once the backend is connected it upgrades
-automatically to the full, intelligent Claude conversation (with report reading
-and AI-written summaries). No front-end change is needed.
+mode** (free, no setup): it chats on the site in the patient's chosen language
+(**English / Hindi / Marathi / Hinglish**), asks a short set of questions (name,
+age/gender, concern, a condition-aware follow-up, other details, preferred
+branch), flags possible emergencies, and then sends a tidy, dated summary to the
+clinic on WhatsApp. Once the backend is connected it upgrades automatically to
+the full, intelligent Claude conversation (free-text understanding, report
+reading, AI-written summaries). No front-end change is needed.
 
 ---
 
