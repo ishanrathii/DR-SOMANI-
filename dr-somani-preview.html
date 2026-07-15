@@ -200,16 +200,20 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 
 /* ============ TREATMENTS ============ */
 .treatments { background: var(--white); }
-.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.card { font-family: inherit; text-align: left; cursor: pointer; width: 100%; background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 22px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.card { font-family: inherit; text-align: left; cursor: pointer; width: 100%; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 0; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s; display: flex; flex-direction: column; }
 .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #cadcef; }
-.card:hover .card__icon { background: #dfeaf7; }
 .card:focus-visible { outline: 3px solid rgba(37,99,168,.4); outline-offset: 2px; }
-.card__icon { font-size: 2.2rem; width: 62px; height: 62px; border-radius: 16px; background: var(--blue-soft); display: grid; place-items: center; margin-bottom: 16px; transition: background .2s, transform .2s; }
-.card:hover .card__icon { transform: scale(1.06); }
+/* banner: real photo when present, calming themed gradient + emoji as the graceful fallback */
+.card__banner { position: relative; display: block; height: 132px; overflow: hidden; background: linear-gradient(140deg, var(--b1, #e5eef8), var(--b2, #c9dbef)); }
+.card__banner::after { content: attr(data-emoji); position: absolute; inset: 0; display: grid; place-items: center; font-size: 3.2rem; filter: drop-shadow(0 4px 10px rgba(20,33,61,.14)); transition: transform .25s ease; }
+.card:hover .card__banner::after { transform: scale(1.08); }
+.card__banner-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: transform .4s ease; }
+.card:hover .card__banner-img { transform: scale(1.05); }
+.card__body { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
 .card h3 { font-size: 1.08rem; color: var(--green-deep); margin-bottom: 8px; }
 .card p { font-size: .9rem; color: var(--muted); }
-.card__pick { display: inline-block; margin-top: 14px; color: var(--gold); font-weight: 600; font-size: .85rem; opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s; }
+.card__pick { display: inline-block; margin-top: auto; padding-top: 14px; color: var(--gold); font-weight: 600; font-size: .85rem; opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s; }
 .card:hover .card__pick, .card:focus-visible .card__pick { opacity: 1; transform: translateX(0); }
 .cards__hint { text-align: center; margin-top: 26px; color: var(--muted); font-size: .92rem; }
 .cards__hint a { color: var(--gold); font-weight: 600; }
@@ -513,14 +517,38 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
       </div>
 
       <div class="cards reveal-stagger">
-        <button type="button" class="card" data-condition="Skin Diseases &amp; Vitiligo"><div class="card__icon">🩹</div><h3>Skin Diseases &amp; Vitiligo</h3><p>Lasting relief for vitiligo, psoriasis, eczema and stubborn skin conditions.</p><span class="card__pick">Select this →</span></button>
-        <button type="button" class="card" data-condition="Allergies"><div class="card__icon">🤧</div><h3>Allergies</h3><p>Treating the root cause of recurring allergies and seasonal reactions.</p><span class="card__pick">Select this →</span></button>
-        <button type="button" class="card" data-condition="Migraine"><div class="card__icon">🧠</div><h3>Migraine</h3><p>Gentle, long-term management of chronic migraines and headaches.</p><span class="card__pick">Select this →</span></button>
-        <button type="button" class="card" data-condition="PCOD"><div class="card__icon">🌸</div><h3>PCOD</h3><p>Hormonal balance and regular cycles through holistic homoeopathic care.</p><span class="card__pick">Select this →</span></button>
-        <button type="button" class="card" data-condition="Kidney Stones"><div class="card__icon">🪨</div><h3>Kidney Stones</h3><p>Safe dissolution and prevention without invasive procedures.</p><span class="card__pick">Select this →</span></button>
-        <button type="button" class="card" data-condition="Acidity &amp; Digestion"><div class="card__icon">🔥</div><h3>Acidity &amp; Digestion</h3><p>Relief from acidity, gas, bloating and digestive disorders.</p><span class="card__pick">Select this →</span></button>
-        <button type="button" class="card" data-condition="Paediatric Illnesses"><div class="card__icon">🧒</div><h3>Paediatric Illnesses</h3><p>Safe, gentle medicines for children's recurring health issues.</p><span class="card__pick">Select this →</span></button>
-        <button type="button" class="card" data-condition="Mental Health Care"><div class="card__icon">💚</div><h3>Mental Health Care</h3><p>Support for stress, anxiety and emotional well-being.</p><span class="card__pick">Select this →</span></button>
+        <button type="button" class="card" data-condition="Skin Diseases &amp; Vitiligo">
+          <span class="card__banner" data-emoji="🩹" style="--b1:#fde4d4;--b2:#f6c6ac"><img class="card__banner-img" src="assets/conditions/skin.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>Skin Diseases &amp; Vitiligo</h3><p>Lasting relief for vitiligo, psoriasis, eczema and stubborn skin conditions.</p><span class="card__pick">Select this →</span></span>
+        </button>
+        <button type="button" class="card" data-condition="Allergies">
+          <span class="card__banner" data-emoji="🤧" style="--b1:#d9f0dd;--b2:#b3ddc3"><img class="card__banner-img" src="assets/conditions/allergies.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>Allergies</h3><p>Treating the root cause of recurring allergies and seasonal reactions.</p><span class="card__pick">Select this →</span></span>
+        </button>
+        <button type="button" class="card" data-condition="Migraine">
+          <span class="card__banner" data-emoji="🧠" style="--b1:#e1e5fb;--b2:#c1cbf4"><img class="card__banner-img" src="assets/conditions/migraine.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>Migraine</h3><p>Gentle, long-term management of chronic migraines and headaches.</p><span class="card__pick">Select this →</span></span>
+        </button>
+        <button type="button" class="card" data-condition="PCOD">
+          <span class="card__banner" data-emoji="🌸" style="--b1:#fdd9e8;--b2:#f5bad4"><img class="card__banner-img" src="assets/conditions/pcod.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>PCOD</h3><p>Hormonal balance and regular cycles through holistic homoeopathic care.</p><span class="card__pick">Select this →</span></span>
+        </button>
+        <button type="button" class="card" data-condition="Kidney Stones">
+          <span class="card__banner" data-emoji="💧" style="--b1:#d3ecf7;--b2:#a9d7ee"><img class="card__banner-img" src="assets/conditions/kidney-stones.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>Kidney Stones</h3><p>Safe dissolution and prevention without invasive procedures.</p><span class="card__pick">Select this →</span></span>
+        </button>
+        <button type="button" class="card" data-condition="Acidity &amp; Digestion">
+          <span class="card__banner" data-emoji="🍃" style="--b1:#d5f0ea;--b2:#abe0d4"><img class="card__banner-img" src="assets/conditions/acidity.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>Acidity &amp; Digestion</h3><p>Relief from acidity, gas, bloating and digestive disorders.</p><span class="card__pick">Select this →</span></span>
+        </button>
+        <button type="button" class="card" data-condition="Paediatric Illnesses">
+          <span class="card__banner" data-emoji="🧒" style="--b1:#fdeecb;--b2:#f7db9a"><img class="card__banner-img" src="assets/conditions/paediatric.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>Paediatric Illnesses</h3><p>Safe, gentle medicines for children's recurring health issues.</p><span class="card__pick">Select this →</span></span>
+        </button>
+        <button type="button" class="card" data-condition="Mental Health Care">
+          <span class="card__banner" data-emoji="💚" style="--b1:#d6efe4;--b2:#b0e0cc"><img class="card__banner-img" src="assets/conditions/mental-health.jpg" alt="" loading="lazy" onerror="this.remove()" /></span>
+          <span class="card__body"><h3>Mental Health Care</h3><p>Support for stress, anxiety and emotional well-being.</p><span class="card__pick">Select this →</span></span>
+        </button>
       </div>
       <p class="cards__hint">Can't find your concern? <a href="#contact">Send us a message</a> and we'll guide you.</p>
     </div>
@@ -749,6 +777,19 @@ window.SOMANI_AI = {
   let busy = false;
   let pending = null; // { kind:"image"|"pdf", media_type, data, name }
 
+  // When the AI backend isn't connected yet, the assistant runs a simple
+  // guided intake on the site and still sends a tidy summary to WhatsApp.
+  const GUIDED = !configured;
+  const intake = {};
+  let step = -1;
+  const STEPS = [
+    { key: "name", q: () => "May I know your name to begin? 🙏" },
+    { key: "agesex", q: (d) => `Thank you${d.name ? ", " + d.name : ""}. May I know your age and gender? (e.g. 34, female)` },
+    { key: "concern", q: () => "What is the main health concern you'd like help with — and how long have you had it?" },
+    { key: "history", q: () => "Is there anything else that would help the doctor? For example: current medicines, what makes it better or worse, or any family history." },
+    { key: "branch", q: () => "Lastly, which would suit you best — Pune (Wakad), Jalgaon, or an online consultation?" },
+  ];
+
   function open() {
     panel.classList.add("open");
     launcher.classList.add("hidden");
@@ -798,23 +839,36 @@ window.SOMANI_AI = {
       "note",
       "For educational guidance only — not a diagnosis or prescription. Dr Somani will review and decide your treatment. In an emergency, call your local emergency number. You can optionally attach a report photo using 📎."
     );
-    if (!configured) {
+    if (GUIDED) {
+      // guided intake — ask the first question
+      askNext();
+    }
+  }
+
+  // ----- guided intake (works with no AI backend) -----
+  function askNext() {
+    step++;
+    if (step < STEPS.length) {
+      bubble("bot", STEPS[step].q(intake));
+    } else {
       bubble(
         "bot",
-        "Our AI assistant is being set up right now. In the meantime, you can chat with the clinic directly on WhatsApp and we'll help you personally."
+        "Thank you — I've noted everything. Tap the button below and I'll send a short summary to the clinic on WhatsApp. The doctor will review it and get back to you personally. 🌸"
       );
-      const b = document.createElement("a");
-      b.className = "ai-cta";
-      b.href = "https://wa.me/" + WA;
-      b.target = "_blank";
-      b.rel = "noopener";
-      b.textContent = "💬 Chat on WhatsApp";
-      msgs.appendChild(b);
-      input.placeholder = "Assistant is being set up…";
-      input.disabled = true;
-      sendBtn.disabled = true;
-      if (attachBtn) attachBtn.disabled = true;
+      handoff.classList.remove("hidden");
     }
+  }
+  function guidedSummary() {
+    const L = ["New patient enquiry via the website assistant:", ""];
+    if (intake.name) L.push("• Name: " + intake.name);
+    if (intake.agesex) L.push("• Age / gender: " + intake.agesex);
+    if (intake.concern) L.push("• Main concern: " + intake.concern);
+    if (intake.history) L.push("• More details: " + intake.history);
+    if (intake.branch) L.push("• Preferred: " + intake.branch);
+    if (intake._report) L.push("• Has a medical report to share: " + intake._report);
+    L.push("");
+    L.push("Please review and suggest the next steps.");
+    return L.join("\n");
   }
 
   // ----- attachments -----
@@ -914,13 +968,26 @@ window.SOMANI_AI = {
   form &&
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (busy || !configured) return;
+      if (busy) return;
       const text = (input.value || "").trim();
       if (!text && !pending) return;
       input.value = "";
       const attachment = pending;
       pending = null;
       showChip();
+
+      // Guided intake mode (no AI backend connected yet)
+      if (GUIDED) {
+        bubble("user", text, attachment && attachment.name);
+        if (attachment) intake._report = attachment.name;
+        if (step >= 0 && step < STEPS.length) {
+          intake[STEPS[step].key] = text || (attachment ? "(report attached)" : "");
+        }
+        askNext();
+        input.focus();
+        return;
+      }
+
       bubble("user", text, attachment && attachment.name);
       history.push({ role: "user", content: text, attachment: attachment || undefined });
       busy = true;
@@ -948,7 +1015,9 @@ window.SOMANI_AI = {
   handoff &&
     handoff.addEventListener("click", async () => {
       let summary = "";
-      if (configured && history.length) {
+      if (GUIDED) {
+        summary = guidedSummary();
+      } else if (configured && history.length) {
         handoff.disabled = true;
         handoff.textContent = "Preparing…";
         try {

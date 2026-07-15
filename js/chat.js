@@ -24,6 +24,19 @@
   let busy = false;
   let pending = null; // { kind:"image"|"pdf", media_type, data, name }
 
+  // When the AI backend isn't connected yet, the assistant runs a simple
+  // guided intake on the site and still sends a tidy summary to WhatsApp.
+  const GUIDED = !configured;
+  const intake = {};
+  let step = -1;
+  const STEPS = [
+    { key: "name", q: () => "May I know your name to begin? 🙏" },
+    { key: "agesex", q: (d) => `Thank you${d.name ? ", " + d.name : ""}. May I know your age and gender? (e.g. 34, female)` },
+    { key: "concern", q: () => "What is the main health concern you'd like help with — and how long have you had it?" },
+    { key: "history", q: () => "Is there anything else that would help the doctor? For example: current medicines, what makes it better or worse, or any family history." },
+    { key: "branch", q: () => "Lastly, which would suit you best — Pune (Wakad), Jalgaon, or an online consultation?" },
+  ];
+
   function open() {
     panel.classList.add("open");
     launcher.classList.add("hidden");
@@ -73,23 +86,36 @@
       "note",
       "For educational guidance only — not a diagnosis or prescription. Dr Somani will review and decide your treatment. In an emergency, call your local emergency number. You can optionally attach a report photo using 📎."
     );
-    if (!configured) {
+    if (GUIDED) {
+      // guided intake — ask the first question
+      askNext();
+    }
+  }
+
+  // ----- guided intake (works with no AI backend) -----
+  function askNext() {
+    step++;
+    if (step < STEPS.length) {
+      bubble("bot", STEPS[step].q(intake));
+    } else {
       bubble(
         "bot",
-        "Our AI assistant is being set up right now. In the meantime, you can chat with the clinic directly on WhatsApp and we'll help you personally."
+        "Thank you — I've noted everything. Tap the button below and I'll send a short summary to the clinic on WhatsApp. The doctor will review it and get back to you personally. 🌸"
       );
-      const b = document.createElement("a");
-      b.className = "ai-cta";
-      b.href = "https://wa.me/" + WA;
-      b.target = "_blank";
-      b.rel = "noopener";
-      b.textContent = "💬 Chat on WhatsApp";
-      msgs.appendChild(b);
-      input.placeholder = "Assistant is being set up…";
-      input.disabled = true;
-      sendBtn.disabled = true;
-      if (attachBtn) attachBtn.disabled = true;
+      handoff.classList.remove("hidden");
     }
+  }
+  function guidedSummary() {
+    const L = ["New patient enquiry via the website assistant:", ""];
+    if (intake.name) L.push("• Name: " + intake.name);
+    if (intake.agesex) L.push("• Age / gender: " + intake.agesex);
+    if (intake.concern) L.push("• Main concern: " + intake.concern);
+    if (intake.history) L.push("• More details: " + intake.history);
+    if (intake.branch) L.push("• Preferred: " + intake.branch);
+    if (intake._report) L.push("• Has a medical report to share: " + intake._report);
+    L.push("");
+    L.push("Please review and suggest the next steps.");
+    return L.join("\n");
   }
 
   // ----- attachments -----
@@ -189,13 +215,26 @@
   form &&
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (busy || !configured) return;
+      if (busy) return;
       const text = (input.value || "").trim();
       if (!text && !pending) return;
       input.value = "";
       const attachment = pending;
       pending = null;
       showChip();
+
+      // Guided intake mode (no AI backend connected yet)
+      if (GUIDED) {
+        bubble("user", text, attachment && attachment.name);
+        if (attachment) intake._report = attachment.name;
+        if (step >= 0 && step < STEPS.length) {
+          intake[STEPS[step].key] = text || (attachment ? "(report attached)" : "");
+        }
+        askNext();
+        input.focus();
+        return;
+      }
+
       bubble("user", text, attachment && attachment.name);
       history.push({ role: "user", content: text, attachment: attachment || undefined });
       busy = true;
@@ -223,7 +262,9 @@
   handoff &&
     handoff.addEventListener("click", async () => {
       let summary = "";
-      if (configured && history.length) {
+      if (GUIDED) {
+        summary = guidedSummary();
+      } else if (configured && history.length) {
         handoff.disabled = true;
         handoff.textContent = "Preparing…";
         try {

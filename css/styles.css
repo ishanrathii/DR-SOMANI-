@@ -182,16 +182,20 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 
 /* ============ TREATMENTS ============ */
 .treatments { background: var(--white); }
-.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.card { font-family: inherit; text-align: left; cursor: pointer; width: 100%; background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 22px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.card { font-family: inherit; text-align: left; cursor: pointer; width: 100%; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 0; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s; display: flex; flex-direction: column; }
 .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #cadcef; }
-.card:hover .card__icon { background: #dfeaf7; }
 .card:focus-visible { outline: 3px solid rgba(37,99,168,.4); outline-offset: 2px; }
-.card__icon { font-size: 2.2rem; width: 62px; height: 62px; border-radius: 16px; background: var(--blue-soft); display: grid; place-items: center; margin-bottom: 16px; transition: background .2s, transform .2s; }
-.card:hover .card__icon { transform: scale(1.06); }
+/* banner: real photo when present, calming themed gradient + emoji as the graceful fallback */
+.card__banner { position: relative; display: block; height: 132px; overflow: hidden; background: linear-gradient(140deg, var(--b1, #e5eef8), var(--b2, #c9dbef)); }
+.card__banner::after { content: attr(data-emoji); position: absolute; inset: 0; display: grid; place-items: center; font-size: 3.2rem; filter: drop-shadow(0 4px 10px rgba(20,33,61,.14)); transition: transform .25s ease; }
+.card:hover .card__banner::after { transform: scale(1.08); }
+.card__banner-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: transform .4s ease; }
+.card:hover .card__banner-img { transform: scale(1.05); }
+.card__body { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
 .card h3 { font-size: 1.08rem; color: var(--green-deep); margin-bottom: 8px; }
 .card p { font-size: .9rem; color: var(--muted); }
-.card__pick { display: inline-block; margin-top: 14px; color: var(--gold); font-weight: 600; font-size: .85rem; opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s; }
+.card__pick { display: inline-block; margin-top: auto; padding-top: 14px; color: var(--gold); font-weight: 600; font-size: .85rem; opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s; }
 .card:hover .card__pick, .card:focus-visible .card__pick { opacity: 1; transform: translateX(0); }
 .cards__hint { text-align: center; margin-top: 26px; color: var(--muted); font-size: .92rem; }
 .cards__hint a { color: var(--gold); font-weight: 600; }

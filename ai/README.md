@@ -13,8 +13,12 @@ Website chat widget  →  your Cloudflare Worker  →  Anthropic (Claude)
 The website is static (GitHub Pages), so it **cannot** safely hold an API key.
 The Worker is a tiny backend that keeps the key secret and talks to Claude.
 
-Right now the assistant runs in **setup mode** (it greets patients and points
-them to WhatsApp) until you complete the 5-minute deploy below.
+Until you complete the 5-minute deploy below, the assistant runs in **guided
+mode**: it still chats on the site — asking the patient a short set of questions
+(name, age/gender, concern, details, preferred branch) — and then sends a tidy
+summary to the clinic on WhatsApp. Once the backend is connected it upgrades
+automatically to the full, intelligent Claude conversation (with report reading
+and AI-written summaries). No front-end change is needed.
 
 ---
 
