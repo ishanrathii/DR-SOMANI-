@@ -376,6 +376,9 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 .ai-msg--bot { background: var(--white); border: 1px solid var(--line); color: var(--ink); align-self: flex-start; border-bottom-left-radius: 4px; }
 .ai-msg--user { background: var(--green); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
 .ai-msg--note { align-self: stretch; background: rgba(212,57,47,.06); border: 1px dashed var(--line); color: var(--muted); font-size: .8rem; text-align: center; border-radius: 10px; }
+.ai-quick { display: flex; flex-wrap: wrap; gap: 8px; align-self: flex-start; }
+.ai-quick button { font-family: 'Inter', sans-serif; font-size: .88rem; font-weight: 600; color: var(--green); background: var(--white); border: 1px solid var(--line); border-radius: 50px; padding: 8px 16px; cursor: pointer; transition: background .15s, border-color .15s, transform .1s; }
+.ai-quick button:hover { background: var(--blue-soft); border-color: #cadcef; transform: translateY(-1px); }
 .ai-cta { align-self: flex-start; display: inline-block; background: #25D366; color: #fff; padding: 9px 16px; border-radius: 50px; font-weight: 600; font-size: .88rem; }
 
 .ai-typing { display: inline-flex; gap: 4px; align-items: center; }
@@ -777,18 +780,114 @@ window.SOMANI_AI = {
   let busy = false;
   let pending = null; // { kind:"image"|"pdf", media_type, data, name }
 
-  // When the AI backend isn't connected yet, the assistant runs a simple
-  // guided intake on the site and still sends a tidy summary to WhatsApp.
+  // When the AI backend isn't connected yet, the assistant runs a friendly
+  // multilingual guided intake on the site and still sends a tidy summary to
+  // WhatsApp. Works with zero setup / zero cost.
   const GUIDED = !configured;
   const intake = {};
-  let step = -1;
-  const STEPS = [
-    { key: "name", q: () => "May I know your name to begin? 🙏" },
-    { key: "agesex", q: (d) => `Thank you${d.name ? ", " + d.name : ""}. May I know your age and gender? (e.g. 34, female)` },
-    { key: "concern", q: () => "What is the main health concern you'd like help with — and how long have you had it?" },
-    { key: "history", q: () => "Is there anything else that would help the doctor? For example: current medicines, what makes it better or worse, or any family history." },
-    { key: "branch", q: () => "Lastly, which would suit you best — Pune (Wakad), Jalgaon, or an online consultation?" },
-  ];
+  let lang = "en";
+  let phase = "lang"; // "lang" -> pick language, then "intake"
+  let queue = [];
+  let qi = -1;
+
+  const LANG_LABEL = { en: "English", hi: "Hindi", he: "Hinglish" };
+
+  // Localised strings for the guided intake
+  const T = {
+    en: {
+      greet: () => `Namaste 🙏 I'm ${NAME}, the assistant for Dr Somani's Homoeopathy. I'll ask a few quick questions and pass your details to the doctor.`,
+      note: "For educational guidance only — not a diagnosis or prescription. Dr Somani will review and decide your treatment. In an emergency, call your local emergency number. You can optionally attach a report photo using 📎.",
+      steps: {
+        name: () => "May I know your name to begin? 🙏",
+        agesex: (d) => `Thank you${d.name ? ", " + d.name : ""}. May I know your age and gender? (e.g. 34, female)`,
+        concern: () => "What is the main health concern you'd like help with — and how long have you had it?",
+        history: () => "Anything else that would help the doctor? For example: current medicines, what makes it better or worse, or any family history.",
+        branch: () => "Lastly, which suits you best — Pune (Wakad), Jalgaon, or an online consultation?",
+      },
+      followups: {
+        skin: "For how long have you noticed the skin changes, and are they spreading or itchy?",
+        kidney: "Have you had pain, or a scan/ultrasound report for the stones? Roughly what size, if you know?",
+        pcod: "Are your cycles regular, and how long has this been a concern?",
+        migraine: "How often do the headaches come, and does light or sound make them worse?",
+        acidity: "Is the acidity worse after certain foods or at a particular time of day?",
+        allergy: "What seems to trigger it — dust, weather, food, or something else?",
+        child: "How old is the child, and how often does this happen?",
+        mental: "How long have you felt this way, and is it affecting your sleep or daily life?",
+      },
+      thanks: "Thank you — I've noted everything. Tap the button below and I'll send a short summary to the clinic on WhatsApp. The doctor will review it and get back to you personally. 🌸",
+      emergency: "⚠️ What you've described may need urgent medical attention. Please don't wait — call your local emergency number or go to the nearest hospital right away. Homoeopathy must not replace emergency care.",
+      handoffBtn: "📤 Send my details to the clinic",
+    },
+    hi: {
+      greet: () => `नमस्ते 🙏 मैं ${NAME} हूँ, डॉ. सोमानी होम्योपैथी की सहायक। मैं कुछ छोटे सवाल पूछूँगी और आपकी जानकारी डॉक्टर तक पहुँचा दूँगी।`,
+      note: "यह केवल शैक्षिक मार्गदर्शन है — कोई निदान या दवा नहीं। डॉ. सोमानी आपका मामला देखकर उपचार तय करेंगे। किसी आपात स्थिति में तुरंत नज़दीकी अस्पताल या आपातकालीन नंबर पर संपर्क करें। आप चाहें तो 📎 से रिपोर्ट की फ़ोटो भेज सकते हैं।",
+      steps: {
+        name: () => "शुरू करने के लिए क्या मैं आपका नाम जान सकती हूँ? 🙏",
+        agesex: (d) => `धन्यवाद${d.name ? ", " + d.name : ""}। कृपया अपनी उम्र और लिंग बताइए (जैसे 34, महिला)।`,
+        concern: () => "आपकी मुख्य स्वास्थ्य समस्या क्या है — और यह कब से है?",
+        history: () => "डॉक्टर के लिए और कुछ जो मददगार हो? जैसे — अभी चल रही दवाइयाँ, किससे आराम या तकलीफ़ बढ़ती है, या पारिवारिक इतिहास।",
+        branch: () => "अंत में, आपके लिए क्या सुविधाजनक रहेगा — पुणे (वाकड), जलगांव, या ऑनलाइन परामर्श?",
+      },
+      followups: {
+        skin: "त्वचा में बदलाव कब से हैं, और क्या ये फैल रहे हैं या खुजली होती है?",
+        kidney: "क्या दर्द हुआ है या पथरी की कोई सोनोग्राफी/रिपोर्ट है? अगर पता हो तो आकार कितना है?",
+        pcod: "क्या आपके मासिक चक्र नियमित हैं, और यह समस्या कब से है?",
+        migraine: "सिरदर्द कितनी बार होता है, और क्या रोशनी या आवाज़ से बढ़ता है?",
+        acidity: "क्या एसिडिटी कुछ खाने के बाद या किसी खास समय पर ज़्यादा होती है?",
+        allergy: "किससे तकलीफ़ बढ़ती है — धूल, मौसम, खाना, या कुछ और?",
+        child: "बच्चे की उम्र कितनी है, और यह कितनी बार होता है?",
+        mental: "आप कब से ऐसा महसूस कर रहे हैं, और क्या इससे नींद या रोज़मर्रा पर असर पड़ता है?",
+      },
+      thanks: "धन्यवाद — मैंने सब नोट कर लिया है। नीचे बटन दबाइए, मैं आपकी जानकारी क्लिनिक को WhatsApp पर भेज दूँगी। डॉक्टर उसे देखकर आपसे संपर्क करेंगे। 🌸",
+      emergency: "⚠️ आपने जो बताया है उसमें तुरंत चिकित्सा की ज़रूरत हो सकती है। कृपया देर न करें — तुरंत नज़दीकी अस्पताल जाएँ या आपातकालीन नंबर पर कॉल करें। आपात स्थिति में होम्योपैथी का इंतज़ार न करें।",
+      handoffBtn: "📤 मेरी जानकारी क्लिनिक को भेजें",
+    },
+    he: {
+      greet: () => `Namaste 🙏 Main ${NAME} hoon, Dr Somani's Homoeopathy ki assistant. Main kuch chhote sawaal poochhungi aur aapki details doctor tak pahuncha dungi.`,
+      note: "Yeh sirf educational guidance hai — koi diagnosis ya prescription nahi. Dr Somani aapka case dekhkar treatment decide karenge. Emergency me turant nazdeeki hospital ya emergency number par call karein. Aap chahein to 📎 se report ki photo bhej sakte hain.",
+      steps: {
+        name: () => "Shuru karne ke liye kya main aapka naam jaan sakti hoon? 🙏",
+        agesex: (d) => `Dhanyavaad${d.name ? ", " + d.name : ""}. Apni age aur gender bata dijiye (jaise 34, female).`,
+        concern: () => "Aapki main health problem kya hai — aur yeh kab se hai?",
+        history: () => "Doctor ke liye aur kuch jo helpful ho? Jaise — abhi chal rahi dawaiyan, kisse aaram ya takleef badhti hai, ya family history.",
+        branch: () => "Last me, aapke liye kya theek rahega — Pune (Wakad), Jalgaon, ya online consultation?",
+      },
+      followups: {
+        skin: "Skin me changes kab se hain, aur kya yeh fail rahe hain ya khujli hoti hai?",
+        kidney: "Kya dard hua hai ya stone ki koi sonography/report hai? Size pata ho to kitna?",
+        pcod: "Kya aapke periods regular hain, aur yeh problem kab se hai?",
+        migraine: "Headache kitni baar hota hai, aur kya light ya sound se badhta hai?",
+        acidity: "Kya acidity kuch khaane ke baad ya kisi khaas time par zyada hoti hai?",
+        allergy: "Kisse takleef badhti hai — dust, mausam, khaana, ya kuch aur?",
+        child: "Bacche ki age kitni hai, aur yeh kitni baar hota hai?",
+        mental: "Aap kab se aisa feel kar rahe hain, aur kya isse neend ya daily life par asar padta hai?",
+      },
+      thanks: "Dhanyavaad — maine sab note kar liya hai. Neeche button dabaiye, main aapki details clinic ko WhatsApp par bhej dungi. Doctor review karke aapse contact karenge. 🌸",
+      emergency: "⚠️ Aapne jo bataya usme turant medical help ki zaroorat ho sakti hai. Kripya der na karein — turant nazdeeki hospital jayein ya emergency number par call karein. Emergency me homoeopathy ka wait na karein.",
+      handoffBtn: "📤 Meri details clinic ko bhejein",
+    },
+  };
+
+  function detectCondition(t) {
+    const s = (t || "").toLowerCase();
+    if (/vitiligo|psorias|eczema|skin|rash|itch|daag|charm/.test(s)) return "skin";
+    if (/kidney|stone|renal|pathri|pathari/.test(s)) return "kidney";
+    if (/pcod|pcos|period|menstru|cycle|ovary|mahwari/.test(s)) return "pcod";
+    if (/migrain|headache|head ache|sar dard|sir dard/.test(s)) return "migraine";
+    if (/acid|gas|bloat|digest|stomach|gastric|pet/.test(s)) return "acidity";
+    if (/allerg|sneez|dust|asthma|khaansi|chheenk/.test(s)) return "allergy";
+    if (/child|kid|baby|paediatric|pediatric|son|daughter|bacch|beta|beti/.test(s)) return "child";
+    if (/anxiet|stress|depress|mental|sad|tension|neend|sleep|ghabra/.test(s)) return "mental";
+    return "";
+  }
+  function isEmergency(t) {
+    return /(chest pain|can'?t breathe|cannot breathe|breathing (problem|trouble|difficulty)|breathless|unconscious|faint|severe bleeding|bleeding a lot|suicid|stroke|seizure|convuls|blue lips|heart attack|saans nahi|behosh|khoon beh|seene? me.?n? dard)/i.test(t || "");
+  }
+  function detectLang(t) {
+    if (/[ऀ-ॿ]/.test(t || "")) return "hi";
+    if (/\b(mera|naam|hai|kya|nahi|haan|dard|mujhe|aap)\b/i.test(t || "")) return "he";
+    return "en";
+  }
 
   function open() {
     panel.classList.add("open");
@@ -831,6 +930,16 @@ window.SOMANI_AI = {
   }
 
   function greet() {
+    if (GUIDED) {
+      // Neutral bilingual greeting, then let the patient pick a language
+      bubble("bot", `Namaste 🙏 I'm ${NAME}, the assistant for Dr Somani's Homoeopathy.`);
+      bubble("bot", "Please choose your language · कृपया अपनी भाषा चुनें:");
+      quickReplies(
+        [["English", "en"], ["हिंदी", "hi"], ["Hinglish", "he"]],
+        (val) => chooseLang(val)
+      );
+      return;
+    }
     bubble(
       "bot",
       `Namaste 🙏 I'm ${NAME}, the assistant for Dr Somani's Homoeopathy. I can help you understand your concern and prepare it for the doctor. May I know your name to begin?`
@@ -839,33 +948,63 @@ window.SOMANI_AI = {
       "note",
       "For educational guidance only — not a diagnosis or prescription. Dr Somani will review and decide your treatment. In an emergency, call your local emergency number. You can optionally attach a report photo using 📎."
     );
-    if (GUIDED) {
-      // guided intake — ask the first question
-      askNext();
-    }
   }
 
-  // ----- guided intake (works with no AI backend) -----
+  // ----- guided intake (multilingual, works with no AI backend) -----
+  function quickReplies(opts, cb) {
+    const wrap = document.createElement("div");
+    wrap.className = "ai-quick";
+    opts.forEach(([label, val]) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      b.addEventListener("click", () => {
+        wrap.remove();
+        bubble("user", label);
+        cb(val);
+      });
+      wrap.appendChild(b);
+    });
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+  function chooseLang(l) {
+    lang = T[l] ? l : "en";
+    phase = "intake";
+    bubble("bot", T[lang].greet());
+    bubble("note", T[lang].note);
+    queue = ["name", "agesex", "concern", "history", "branch"];
+    qi = -1;
+    askNext();
+  }
   function askNext() {
-    step++;
-    if (step < STEPS.length) {
-      bubble("bot", STEPS[step].q(intake));
-    } else {
-      bubble(
-        "bot",
-        "Thank you — I've noted everything. Tap the button below and I'll send a short summary to the clinic on WhatsApp. The doctor will review it and get back to you personally. 🌸"
-      );
+    qi++;
+    if (qi >= queue.length) {
+      bubble("bot", T[lang].thanks);
+      handoff.textContent = T[lang].handoffBtn;
       handoff.classList.remove("hidden");
+      return;
+    }
+    const key = queue[qi];
+    if (key === "followup") {
+      bubble("bot", T[lang].followups[intake._cond]);
+    } else {
+      bubble("bot", T[lang].steps[key](intake));
     }
   }
   function guidedSummary() {
-    const L = ["New patient enquiry via the website assistant:", ""];
+    const date = new Date().toLocaleDateString("en-GB", {
+      day: "numeric", month: "short", year: "numeric",
+    });
+    const L = ["*New patient enquiry — Dr Somani's website assistant*", "Date: " + date, ""];
     if (intake.name) L.push("• Name: " + intake.name);
     if (intake.agesex) L.push("• Age / gender: " + intake.agesex);
     if (intake.concern) L.push("• Main concern: " + intake.concern);
-    if (intake.history) L.push("• More details: " + intake.history);
+    if (intake.followup) L.push("• Details: " + intake.followup);
+    if (intake.history) L.push("• History / notes: " + intake.history);
     if (intake.branch) L.push("• Preferred: " + intake.branch);
-    if (intake._report) L.push("• Has a medical report to share: " + intake._report);
+    if (intake._report) L.push("• Report to share: " + intake._report);
+    L.push("• Chat language: " + (LANG_LABEL[lang] || "English"));
     L.push("");
     L.push("Please review and suggest the next steps.");
     return L.join("\n");
@@ -980,8 +1119,29 @@ window.SOMANI_AI = {
       if (GUIDED) {
         bubble("user", text, attachment && attachment.name);
         if (attachment) intake._report = attachment.name;
-        if (step >= 0 && step < STEPS.length) {
-          intake[STEPS[step].key] = text || (attachment ? "(report attached)" : "");
+
+        // Patient typed instead of tapping a language chip
+        if (phase === "lang") {
+          chooseLang(detectLang(text));
+          input.focus();
+          return;
+        }
+
+        // Emergency safety check on anything they tell us
+        if (text && isEmergency(text)) bubble("note", T[lang].emergency);
+
+        const key = queue[qi];
+        if (key) {
+          if (key === "followup") intake.followup = text;
+          else intake[key] = text || (attachment ? "(report attached)" : "");
+          // After the main concern, add one condition-aware follow-up
+          if (key === "concern") {
+            const cond = detectCondition(text);
+            if (cond && T[lang].followups[cond]) {
+              intake._cond = cond;
+              queue.splice(qi + 1, 0, "followup");
+            }
+          }
         }
         askNext();
         input.focus();
