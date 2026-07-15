@@ -111,19 +111,19 @@ document.querySelectorAll('.card[data-condition]').forEach((card) => {
   nums.forEach((el) => io.observe(el));
 })();
 
-// ===== Skin & Vitiligo gallery: only show once a real photo loads =====
+// ===== Condition galleries: only show once at least one real photo loads =====
 (function () {
-  const sec = document.getElementById("skinGallery");
-  if (!sec) return;
-  let shown = false;
-  const reveal = () => {
-    if (shown) return;
-    shown = true;
-    sec.classList.remove("hidden");
-  };
-  sec.querySelectorAll("img").forEach((img) => {
-    if (img.complete && img.naturalWidth > 0) reveal();
-    img.addEventListener("load", reveal);
+  document.querySelectorAll(".condgal").forEach((sec) => {
+    let shown = false;
+    const reveal = () => {
+      if (shown) return;
+      shown = true;
+      sec.classList.remove("hidden");
+    };
+    sec.querySelectorAll("img").forEach((img) => {
+      if (img.complete && img.naturalWidth > 0) reveal();
+      img.addEventListener("load", reveal);
+    });
   });
 })();
 

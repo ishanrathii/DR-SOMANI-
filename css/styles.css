@@ -207,7 +207,7 @@ section.about, section.treatments, section.testimonials, section.contact { paddi
 /* ============ SKIN & VITILIGO GALLERY ============ */
 .skingal { padding: 8px 0 var(--sp-section); background: var(--white); }
 .skingal.hidden { display: none; }
-.skingal__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.skingal__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
 .skingal__item { margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--cream); aspect-ratio: 4 / 3; }
 .skingal__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .skingal__item:hover img { transform: scale(1.05); }

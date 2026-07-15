@@ -17,6 +17,17 @@ the photo is missing).
 | `paediatric.jpg`      | Paediatric Illnesses     | Happy, healthy child |
 | `mental-health.jpg`   | Mental Health Care       | Calm, meditation, peace of mind |
 
+### Homepage galleries
+Some conditions also show a photo **gallery** on the home page (it appears
+automatically once at least one photo is uploaded):
+
+| Gallery              | File names |
+|----------------------|------------|
+| Skin & Vitiligo      | `skin.jpg`, `skin-2.jpg`, `skin-3.jpg`, `skin-4.jpg` |
+| Allergies            | `allergies.jpg`, `allergies-2.jpg`, `allergies-3.jpg` |
+
+(`skin.jpg` / `allergies.jpg` are shared with the treatment-card banner.)
+
 ### Tips
 - **Size:** roughly **800 × 500 px** (landscape). Anything close is fine — the
   card crops to fit.
