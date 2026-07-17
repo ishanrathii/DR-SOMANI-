@@ -23,7 +23,7 @@ automatically once at least one photo is uploaded):
 
 | Gallery              | File names |
 |----------------------|------------|
-| Skin & Vitiligo      | `skin.jpg`, `skin-2.jpg`, `skin-3.jpg`, `skin-4.jpg` |
+| Skin & Vitiligo      | `skin.jpg`, `skin-2.jpg`, `skin-3.jpg`, `skin-4.jpg`, `skin-5.jpg` |
 | Allergies            | `allergies.jpg`, `allergies-2.jpg`, `allergies-3.jpg` |
 
 (`skin.jpg` / `allergies.jpg` are shared with the treatment-card banner.)
