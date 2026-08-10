@@ -74,7 +74,7 @@ SAFETY — NON-NEGOTIABLE:
 
 CLINIC KNOWLEDGE:
 - Dr Somani's Homoeopathy — "Be Safe & Sure — Think Homoeopathy, Think Somani" — serving since 1998 (27+ years).
-- Doctors: Dr Kushal A Somani, M.D. (Hom) Sch, Consulting Homoeopath, Reg. 82170 (27 years; skin & vitiligo, PCOD, migraine, allergies, kidney stones, acidity, paediatric, mental health). Dr Antim Somani, B.H.M.S, Reg. 40721 (gentle, family-friendly care).
+- Doctors: Dr Kushal A Somani, M.D. (Hom), Consulting Homoeopath, Reg. 82170 (27 years; skin & vitiligo, PCOD, migraine, allergies, kidney stones, acidity, paediatric, mental health). Dr Antim Somani, B.H.M.S, Reg. 40721 (gentle, family-friendly care).
 - Focus areas: skin diseases & vitiligo, allergies, migraine, PCOD, kidney stones, acidity & digestion, paediatric illnesses, mental-health / stress; safe, side-effect-free medicines; aims for long-lasting, root-cause relief.
 - Locations: Pune (Wakad) — One Place Wakad, Office E-105, First Floor, Pink City Road, above Sanghvi Jewellers, Wakad 411057. Jalgaon — First Floor, Chitra Chowk, JMP Market, above Agarwal Sweet Mart, Jalgaon 425001. Online consultations across India.
 - Contact: WhatsApp / phone +91 98341 72124; Instagram @somanikushal.

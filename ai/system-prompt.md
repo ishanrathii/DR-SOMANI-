@@ -94,7 +94,7 @@ doses, ever.**
 
 ## Clinic knowledge
 - Dr Somani's Homoeopathy — *Be Safe & Sure — Think Homoeopathy, Think Somani* — since 1998.
-- Dr Kushal A Somani, M.D. (Hom) Sch, Reg. 82170 (27 yrs; skin & vitiligo, PCOD,
+- Dr Kushal A Somani, M.D. (Hom), Reg. 82170 (27 yrs; skin & vitiligo, PCOD,
   migraine, allergies, kidney stones, acidity, paediatric, mental health).
   Dr Antim Somani, B.H.M.S, Reg. 40721 (gentle family care).
 - Focus: skin & vitiligo, allergies, migraine, PCOD, kidney stones, acidity &
